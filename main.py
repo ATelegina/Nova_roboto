@@ -33,3 +33,4 @@ def send_welcome(message):
     time.sleep(1)
     bot.send_message(message.chat.id, "Ĵetu viajn galantvortojn, aĉulo")
     
+bot.polling()
