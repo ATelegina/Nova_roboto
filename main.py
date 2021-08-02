@@ -23,7 +23,7 @@ import random
 import sqlite3
 from telebot import types
 
-path = "C:\\_MY THINGS_\\robotino\\mesagharo.db"
+path = "mesagharo.db"
 mesagharo = sqlite3.connect(path, check_same_thread=False)
 
 cursor = mesagharo.cursor()
@@ -46,6 +46,12 @@ def send_welcome(message):
     bot.send_chat_action(message.chat.id, 'typing')
     time.sleep(1)
     bot.send_message(message.chat.id, "Ĵetu viajn galantvortojn, aĉulo")
+    
+@bot.message_handler(commands=['versio'])
+def sendu_version(message):
+    time.sleep(0.3)
+    bot.reply_to(message, "La versio de Robotino: " + versio)
+
     
 @bot.message_handler(commands=['montri'])
 def sendu_malpermesojn(message):
