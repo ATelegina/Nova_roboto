@@ -16,7 +16,7 @@ else:
 
 frazoj = ["Mi jam perdis kontrolon", "Mi havas mil...dan voĉon", "Vi uzas nur duonon de via cerbo, ĉu?", "Vi estas detruema", "Vi ne havas solvon", "Ni estas mense egalaj", "Ĉu vi havas 27 horojn en unu tago?", "Vi devus viziti", "Talpa penso", "Mi ne estas komencanto", "ALKUTIMIGXU KUNVIVI", "Al vi ne mankas minutoj", "Vi ne povas eviti diri ĉiam ion detruantan", "Memoru tion", "Vi ne volis esti ĉefo", "Hispanio dormas", "Forta malkrizo", "Forta krizo", "Laboru forte, sed vi faras tro...", '"Per unu mano ili konstruas, per alia detruas"', "Vi regas el la ombroj", "...sen limoj", "Talpo!", "Forigu vin!", "Dankon, Bertileto", "Neniu zorgas", "Ege malrespekte", "Zamenhof mortis.", "Bravaj vortoj", "Mdr", "+1", "Mi devus aĉeti pufmaizon", "Difinu", "Koran tankon", "Vi meritas esti aŭskultata", "Fakte!", "Vera kloakano!", "Forfikiĝu!", 'Vi ne estas finbenkisto', "Nedoankinde", "Vi obsede tajpas, tajpas, tajpas...", "Vi estas obsediĝema", "Ĉu pedanti aŭ pedantumi?..", "Spam', spam', spam'", "Ĉu vere?!"]
 
-versio="v8"
+versio="0.1a"
 
 import telebot
 import time
@@ -466,8 +466,8 @@ def certas_demando(message):
                              bot.send_message(ne_id, user.teksto)
                      else:
                          bot.send_message(ne_id, user.teksto)
-                 else: 
-                    if responda_ligilo(user.caption) != None:
+                 elif user.tipo != "poll" and user.tipo != "sticker": 
+                    if responda_ligilo(str(user.caption)) != None:
                          respondato, capcio = responda_ligilo(user.caption)
                     else:
                         respondato = None
