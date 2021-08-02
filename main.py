@@ -2,7 +2,7 @@
 # Antaŭ komenco de lanĉado:aldoni esceptojn :bot. ŝanĝiget_chat_member, ŝanĝi ne_id, nombron de i en def responda ligilo (devos esti 6), sendu_tekston @glumarkoj
 # =============================================================================
 
-ĉu_testo = True
+ĉu_testo = False
 if ĉu_testo:
     TOKEN = "1889084287:AAFA5Q8B9h2W5iuXS3pZm9fyfUykH0EG9aE"
     ne_id = -1001204743894
