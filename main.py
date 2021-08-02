@@ -2,20 +2,21 @@
 # Antaŭ komenco de lanĉado:aldoni esceptojn :bot. ŝanĝiget_chat_member, ŝanĝi ne_id, nombron de i en def responda ligilo (devos esti 6), sendu_tekston @glumarkoj
 # =============================================================================
 
-ĉu_testo = False
+ĉu_testo = True
 if ĉu_testo:
     TOKEN = "1889084287:AAFA5Q8B9h2W5iuXS3pZm9fyfUykH0EG9aE"
     ne_id = -1001204743894
     ligila_longeco = 3
-    
+    path = "C:\\_MY THINGS_\\robotino\\mesagharo.db"
 else:
     TOKEN = "1938071091:AAHF9mOw0YevCNcItxbEN94uIYwkRlUBTz0"
     ne_id = -1001463711396
     ligila_longeco = 6
+    path = "mesagharo.db"
 
 frazoj = ["Mi jam perdis kontrolon", "Mi havas mil...dan voĉon", "Vi uzas nur duonon de via cerbo, ĉu?", "Vi estas detruema", "Vi ne havas solvon", "Ni estas mense egalaj", "Ĉu vi havas 27 horojn en unu tago?", "Vi devus viziti", "Talpa penso", "Mi ne estas komencanto", "ALKUTIMIGXU KUNVIVI", "Al vi ne mankas minutoj", "Vi ne povas eviti diri ĉiam ion detruantan", "Memoru tion", "Vi ne volis esti ĉefo", "Hispanio dormas", "Forta malkrizo", "Forta krizo", "Laboru forte, sed vi faras tro...", '"Per unu mano ili konstruas, per alia detruas"', "Vi regas el la ombroj", "...sen limoj", "Talpo!", "Forigu vin!", "Dankon, Bertileto", "Neniu zorgas", "Ege malrespekte", "Zamenhof mortis.", "Bravaj vortoj", "Mdr", "+1", "Mi devus aĉeti pufmaizon", "Difinu", "Koran tankon", "Vi meritas esti aŭskultata", "Fakte!", "Vera kloakano!", "Forfikiĝu!", 'Vi ne estas finbenkisto', "Nedoankinde", "Vi obsede tajpas, tajpas, tajpas...", "Vi estas obsediĝema", "Ĉu pedanti aŭ pedantumi?..", "Spam', spam', spam'", "Ĉu vere?!"]
 
-versio="0.1a"
+versio="v8"
 
 import telebot
 import time
@@ -23,7 +24,6 @@ import random
 import sqlite3
 from telebot import types
 
-path = "mesagharo.db"
 mesagharo = sqlite3.connect(path, check_same_thread=False)
 
 cursor = mesagharo.cursor()
@@ -47,26 +47,25 @@ def send_welcome(message):
     time.sleep(1)
     bot.send_message(message.chat.id, "Ĵetu viajn galantvortojn, aĉulo")
     
-@bot.message_handler(commands=['versio'])
-def sendu_version(message):
-    time.sleep(0.3)
-    bot.reply_to(message, "La versio de Robotino: " + versio)
-
-    
 @bot.message_handler(commands=['montri'])
 def sendu_malpermesojn(message):
  if message.chat.type == "private": 
     bot.reply_to(message, "Nun mi sendos al vi ĉiun malpermesaĵon de @Esperantujoo")
     bot.send_chat_action(message.chat.id, 'typing')
     time.sleep(0.3)
-    bot.send_message(message.chat.id, "Jen la fifrazoj:")
+    i = 0
+    bot.send_message(message.chat.id, "<i>Fifrazoj:</i>", parse_mode='html')
     for frazo in cursor.execute("SELECT teksto FROM vortoj"):
         frazo = ''.join(str(x) for x in frazo)
         frazo = frazo.translate({ ord(c): None for c in "(),'" })
         bot.send_message(message.chat.id, str(frazo))
         time.sleep(0.3)
+        i=+1
+    if i == 0:
+        bot.send_message(message.chat.id, "Nuntempe ĉiu frazo estas permesita")
     time.sleep(0.3)
-    bot.send_message(message.chat.id, "Jen la aĉaj glumarkoj:")
+    i = 0
+    bot.send_message(message.chat.id, "<i>Aĉaj glumarkoj:</i>", parse_mode='html')
     for frazo in cursor.execute("SELECT teksto FROM malpermesoj WHERE tipo = 'glumarko'"):
         frazo = ''.join(str(x) for x in frazo)
         frazo = frazo.translate({ ord(c): None for c in "(),'" })
@@ -75,10 +74,12 @@ def sendu_malpermesojn(message):
             time.sleep(0.3)
         except Exception as e:
             pass
+    if i == 0:
+        bot.send_message(message.chat.id, "Kloakanoj uzas normalajn glumarkojn, do mi permesas ĉiun")
     i = 0   
     for uzanto in cursor.execute("SELECT uzanta_id FROM blokituloj"): 
          i +=1
-    bot.send_message(message.chat.id, "Nombro de uzantoj, kiuj nuntempe ne povas regi el la ombroj : " + str(i))    
+    bot.send_message(message.chat.id, "<i>Nombro de uzantoj, kiuj nuntempe ne povas regi el la ombroj:</i> " + str(i), parse_mode='html')    
  else:
      bot.send_message(message.chat.id, "Ĉi tiu komando meritas esti aŭskultata nur private")
     
@@ -99,7 +100,7 @@ def sendu_helpon(message):
 def sendu_tekston(message):
     print(message.chat.id)
     if message.chat.id != ne_id and message.chat.type == "private":
-         if bot.get_chat_member('@Esperantujoo', message.from_user.id).status == 'left':   
+         if bot.get_chat_member(ne_id, message.from_user.id).status == 'left':   
              bot.send_message(message.chat.id, "Vi ne estas vera kloakano. Aliĝu: @Esperantujoo")
          elif message.chat.id != ne_id and message.chat.type != "private":
              pass
@@ -123,7 +124,10 @@ def sendu_tekston(message):
                         frazo = frazo.translate({ ord(c): None for c in "(),'" })
                         if message.text:
                             if message.text.lower().find(frazo.lower()) != -1:
-                                bot.send_message(message.chat.id, "Talpo, la frazo '" + frazo + "' estas malpermesita")
+                                if frazo.find(" ") != -1: 
+                                    bot.send_message(message.chat.id, "Talpo, la frazo '" + frazo + "' estas malpermesita")
+                                else:
+                                    bot.send_message(message.chat.id, "Talpo, la vorto '" + frazo + "' estas malpermesita")
                                 return
                         if message.caption:
                             if message.caption.lower().find(frazo.lower()) != -1:
@@ -199,7 +203,7 @@ def sendu_tekston(message):
                     usernameilo = cu_robotino.find('username')
                     cu_robotino = cu_robotino[usernameilo+12:usernameilo+24]
                     if cu_robotino == 'robotino_bot':
-                        cu_rego = bot.get_chat_member(message.chat.id, message.from_user.id).status
+                        cu_rego = bot.get_chat_member(ne_id, message.from_user.id).status
                         if cu_rego == "administrator" or cu_rego == "creator" or message.from_user.id == 602309534:
                             if int(message.reply_to_message.date) + 3600 > int(time.time()):
                                 if len(message.text) == 6:
@@ -296,7 +300,7 @@ def sendu_tekston(message):
                 return
         elif message.text.find('/malpermesi') !=-1:
             if message.text.find('/malpermesi') == 0:
-                cu_rego = bot.get_chat_member(message.chat.id, message.from_user.id).status
+                cu_rego = bot.get_chat_member(ne_id, message.from_user.id).status
                 if cu_rego == "administrator" or cu_rego == "creator" or message.from_user.id == 602309534:
                     if message.reply_to_message:
                         if len(message.text) != 11:
@@ -355,7 +359,7 @@ def sendu_tekston(message):
                 return
         elif message.text.find("/permesi") != -1:
             if message.text.find('/permesi') == 0:
-                cu_rego = bot.get_chat_member(message.chat.id, message.from_user.id).status
+                cu_rego = bot.get_chat_member(ne_id, message.from_user.id).status
                 if cu_rego == "administrator" or cu_rego == "creator" or message.from_user.id == 602309534:
                     if message.reply_to_message:
                         if len(message.text) != 8:
