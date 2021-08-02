@@ -417,7 +417,7 @@ def responda_ligilo(tekst):
         return respondato, tekst
     
 def certas_demando(message):
-      #  try:
+        try:
                  user_id = message.from_user.id
                  cu = message.text
                  user = user_dict[user_id]
@@ -479,11 +479,11 @@ def certas_demando(message):
                      bot.send_poll(ne_id, user.teksto.question, user.teksto.options, type = enketa_tipo, correct_option_id = user.teksto.correct_option_id, allows_multiple_answers=user.teksto.allows_multiple_answers, is_anonymous = user.teksto.is_anonymous, explanation = user.teksto.explanation)
                  
                  bot.send_message(message.chat.id, frazoj[random.randint(0,len(frazoj)-1)])
-# =============================================================================
-#         except Exception as e:
-#             time.sleep(0.3)
-#             bot.send_message(message.chat.id, "Eraro okazis. Provu denove")
-# =============================================================================
+
+        except Exception as e:
+             time.sleep(0.3)
+             bot.send_message(message.chat.id, "Eraro okazis. Provu denove")
+
 
 bot.enable_save_next_step_handlers(delay=2)
 bot.load_next_step_handlers()  
