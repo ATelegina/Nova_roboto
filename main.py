@@ -59,7 +59,7 @@ def sendu_malpermesojn(message):
  if message.chat.type == "private": 
     bot.reply_to(message, "Nun mi sendos al vi ĉiun malpermesaĵon de @Esperantujoo")
     bot.send_chat_action(message.chat.id, 'typing')
-    time.sleep(0.5)
+    time.sleep(1)
     
     i = 0
     bot.send_message(message.chat.id, "<i>Fifrazoj:</i>", parse_mode='html')
@@ -86,6 +86,7 @@ def sendu_malpermesojn(message):
             pass
     if i == 0:
         bot.send_message(message.chat.id, "Kloakanoj uzas normalajn glumarkojn, do mi permesas ĉiun")
+        time.sleep(0.3)
     
     i = 0
     bot.send_message(message.chat.id, "<i>Bildoj, kiuj devas malaperi el nia pura kloako:</i>", parse_mode='html')
@@ -99,7 +100,8 @@ def sendu_malpermesojn(message):
         except Exception as e:
             pass
     if i == 0:
-        bot.send_message(message.chat.id, "...ne ekzistas, ĉar la kloako malpuras")    
+        bot.send_message(message.chat.id, "...ne ekzistas, ĉar la kloako malpuras") 
+        time.sleep(0.3)
     
     i = 0
     bot.send_message(message.chat.id, "<i>Movbildoj kun porkoj kaj orangutangoj</i>", parse_mode='html')
@@ -115,6 +117,7 @@ def sendu_malpermesojn(message):
             pass
     if i == 0:
         bot.send_message(message.chat.id, "...estas mojosaj, neniu malpermesus ilin") 
+        time.sleep(0.3)
     
     i = 0
     bot.send_message(message.chat.id, "<i>Voĉoj, kiuj ne taŭgas por la Meza venko</i>", parse_mode='html')
@@ -129,6 +132,7 @@ def sendu_malpermesojn(message):
             pass
     if i == 0:
         bot.send_message(message.chat.id, "...ne ekzistas")
+        time.sleep(0.3)
         
     i = 0
     bot.send_message(message.chat.id, "<i>Sonoj, kiuj ne meritas esti aŭskultataj:</i>", parse_mode='html')
@@ -142,7 +146,8 @@ def sendu_malpermesojn(message):
         except Exception as e:
             pass
     if i == 0:
-       bot.send_message(message.chat.id, "...jam estis aŭskultitaj")    
+       bot.send_message(message.chat.id, "...jam estis aŭskultitaj")
+    time.sleep(0.3)
         
     i = 0
     bot.send_message(message.chat.id, "<i>Videoj, kiuj ankoraŭ ne estas ĉe tubaro:</i>", parse_mode='html')
@@ -157,6 +162,7 @@ def sendu_malpermesojn(message):
             pass
     if i == 0:
         bot.send_message(message.chat.id, "Oni alŝultis jam ĉion, do nenio")
+    time.sleep(0.3)    
         
     i = 0
     bot.send_message(message.chat.id, "<i>Videoj en timigaj cirkloj</i>", parse_mode='html')
@@ -171,6 +177,7 @@ def sendu_malpermesojn(message):
             pass
     if i == 0:
         bot.send_message(message.chat.id, "...ne estas timigaj. Se vi timus cirklojn, vi devus viziti")  
+    time.sleep(0.3)    
         
     i = 0
     bot.send_message(message.chat.id, "<i>Dokumentoj, kie troviĝas idaĵoj</i>", parse_mode='html')
@@ -185,6 +192,7 @@ def sendu_malpermesojn(message):
             pass
     if i == 0:
         bot.send_message(message.chat.id, "...ne povas esti senditaj per veraj kloakanoj.")  
+    time.sleep(0.3)    
         
     i = 0
     bot.send_message(message.chat.id, "<i>La plej malbonaj ekzemploj de enketokratio</i>", parse_mode='html')
