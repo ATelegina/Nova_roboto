@@ -405,7 +405,7 @@ def sendu_tekston(message):
                      user.caption = caption
                      
                  
-                     markup = types.ReplyKeyboardMarkup(row_width=2)
+                     markup = types.ReplyKeyboardMarkup(row_width=2, one_time_keyboard=True)
                      itembtn1 = types.KeyboardButton('Jes')
                      itembtn2 = types.KeyboardButton('Ne')
                      markup.add(itembtn1, itembtn2)
