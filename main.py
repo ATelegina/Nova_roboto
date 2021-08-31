@@ -859,7 +859,7 @@ def sendu_tekston(message):
                     #bot.send_message(message.chat.id, "Respondu al sendita per **mi** messaĝo")
                     pass
             else:
-                bot.send_message(message.chat.id, "Respondu al mesaĝo por influi karmon de uzanto")
+                #bot.send_message(message.chat.id, "Respondu al mesaĝo por influi karmon de uzanto")
             
 def responda_ligilo(tekst):
     if tekst.find('https://t.me/Esperantujoo/') != -1 and len(tekst) > 26 + ligila_longeco:  
