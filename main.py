@@ -489,7 +489,7 @@ def sendu_tekston(message):
                                                     unikilo = unikilo + kodilo + opcioj
                                                 except Exception as e:
                                                     i = 11
-                                        print("Reply-unikilo por bloki" + unikilo)    
+                                        #print("Reply-unikilo por bloki" + unikilo)    
                                         if tipo != "teksto":    
                                             uzanta_id = cursor.execute("""SELECT uzanta_id FROM historio WHERE tipo = ? AND unikilo = ?""", (str(tipo), str(unikilo)))
                                             print(uzanta_id)
@@ -856,7 +856,8 @@ def sendu_tekston(message):
                     else:
                         bot.send_message("La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
                 else:
-                    bot.send_message(message.chat.id, "Respondu al sendita per **mi** messaĝo")
+                    #bot.send_message(message.chat.id, "Respondu al sendita per **mi** messaĝo")
+                    pass
             else:
                 bot.send_message(message.chat.id, "Respondu al mesaĝo por influi karmon de uzanto")
             
