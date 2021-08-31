@@ -2,7 +2,7 @@
 # Antaŭ komenco de lanĉado:aldoni esceptojn :bot. ŝanĝiget_chat_member, ŝanĝi ne_id, nombron de i en def responda ligilo (devos esti 6), sendu_tekston @glumarkoj
 # =============================================================================
 
-ĉu_testo = False
+ĉu_testo = True
 if ĉu_testo:
     TOKEN = "1889084287:AAFA5Q8B9h2W5iuXS3pZm9fyfUykH0EG9aE"
     ne_id = -1001204743894
@@ -899,9 +899,12 @@ def certas_demando(message):
                  bot.send_chat_action(ne_id, 'typing')
 
                  time.sleep(2)
-                 rubejo, teksto_sen_ligilo = responda_ligilo(user.teksto)
-                 if teksto_sen_ligilo[-1] == " ": teksto_sen_ligilo = teksto_sen_ligilo[:-1]
-                 elif teksto_sen_ligilo[0] == " ": teksto_sen_ligilo = teksto_sen_ligilo[1:]
+                 if responda_ligilo(user.teksto) != None: 
+                     rubejo, teksto_sen_ligilo = responda_ligilo(user.teksto)
+                     if teksto_sen_ligilo[-1] == " ": teksto_sen_ligilo = teksto_sen_ligilo[:-1]
+                     elif teksto_sen_ligilo[0] == " ": teksto_sen_ligilo = teksto_sen_ligilo[1:]
+                 else:
+                     teksto_sen_ligilo = user.teksto
                  if user.tipo != "poll":
                      cursor.execute("""INSERT INTO historio VALUES (?, ?, ?, ?, ?)""", (str(message.from_user.id), str(teksto_sen_ligilo), str(user.unikilo), str(user.tipo), str(int(time.time()))))
                  else:
@@ -954,9 +957,11 @@ def certas_demando(message):
                  
                  bot.send_message(message.chat.id, frazoj[random.randint(0,len(frazoj)-1)])
 
-        except Exception as e:
-             time.sleep(0.3)
-             bot.send_message(message.chat.id, "Eraro okazis. Provu denove")
+
+         except Exception as e:
+              time.sleep(0.3)
+              bot.send_message(message.chat.id, "Eraro okazis. Provu denove")
+
 
 
 bot.enable_save_next_step_handlers(delay=2)
