@@ -958,7 +958,7 @@ def certas_demando(message):
                  bot.send_message(message.chat.id, frazoj[random.randint(0,len(frazoj)-1)])
 
 
-         except Exception as e:
+        except Exception as e:
               time.sleep(0.3)
               bot.send_message(message.chat.id, "Eraro okazis. Provu denove")
 
