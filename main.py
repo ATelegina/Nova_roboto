@@ -6,7 +6,7 @@
 if ĉu_testo:
     TOKEN = "1889084287:AAFA5Q8B9h2W5iuXS3pZm9fyfUykH0EG9aE"
     ne_id = -1001204743894
-    ligila_longeco = 3
+    ligila_longeco = 4
     path = "C:\\_MY THINGS_\\robotino\\mesagharo.db"
     nomo_de_roboto = "GluMarko_bot"
 else:
@@ -40,6 +40,7 @@ class User:
         self.cu = None
         self.caption = None
         self.unikilo = None
+        self.ligilo = None
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -516,7 +517,7 @@ def sendu_tekston(message):
                                             frazo = frazo.translate({ ord(c): None for c in "(),'" })
                                             if frazo == "":
                                                 bot.send_message(idilo, "Ĉi tiu mesaĝo estas mia, sed bone, mi forigos ĝin")
-                                                cursor.execute("""DELETE FROM blokituloj WHERE uzanta_id = ''""")
+                                                cursor.execute("""DELETE FROM blokituloj WHERE uzanta_id = ''""").fetchall()
                                                 return
                                             else:
                                                 pass
@@ -809,7 +810,7 @@ def sendu_tekston(message):
                                                     i = 11
                                             tipo = 'poll'
                                             teksto = unikilo
-                                            
+                                        #rubejo, teksto = responda_ligilo(teksto)    
                                         if tipo != "teksto":    
                                             nombro = 0
                                             for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE unikilo = ?""", (str(teksto),)).fetchall():
@@ -898,8 +899,11 @@ def certas_demando(message):
                  bot.send_chat_action(ne_id, 'typing')
 
                  time.sleep(2)
+                 rubejo, teksto_sen_ligilo = responda_ligilo(user.teksto)
+                 if teksto_sen_ligilo[-1] == " ": teksto_sen_ligilo = teksto_sen_ligilo[:-1]
+                 elif teksto_sen_ligilo[0] == " ": teksto_sen_ligilo = teksto_sen_ligilo[1:]
                  if user.tipo != "poll":
-                     cursor.execute("""INSERT INTO historio VALUES (?, ?, ?, ?, ?)""", (str(message.from_user.id), str(user.teksto), str(user.unikilo), str(user.tipo), str(int(time.time()))))
+                     cursor.execute("""INSERT INTO historio VALUES (?, ?, ?, ?, ?)""", (str(message.from_user.id), str(teksto_sen_ligilo), str(user.unikilo), str(user.tipo), str(int(time.time()))))
                  else:
                      #if user.teksto.correct_option_id != None: enketa_tipo = 'quiz'
                      kiaj_opcioj = user.teksto.options
