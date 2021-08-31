@@ -899,13 +899,13 @@ def certas_demando(message):
                  bot.send_chat_action(ne_id, 'typing')
 
                  time.sleep(2)
-                 if responda_ligilo(user.teksto) != None: 
-                     rubejo, teksto_sen_ligilo = responda_ligilo(user.teksto)
-                     if teksto_sen_ligilo[-1] == " ": teksto_sen_ligilo = teksto_sen_ligilo[:-1]
-                     elif teksto_sen_ligilo[0] == " ": teksto_sen_ligilo = teksto_sen_ligilo[1:]
-                 else:
-                     teksto_sen_ligilo = user.teksto
                  if user.tipo != "poll":
+                     if responda_ligilo(user.teksto) != None: 
+                         rubejo, teksto_sen_ligilo = responda_ligilo(user.teksto)
+                         if teksto_sen_ligilo[-1] == " ": teksto_sen_ligilo = teksto_sen_ligilo[:-1]
+                         elif teksto_sen_ligilo[0] == " ": teksto_sen_ligilo = teksto_sen_ligilo[1:]
+                     else:
+                         teksto_sen_ligilo = user.teksto
                      cursor.execute("""INSERT INTO historio VALUES (?, ?, ?, ?, ?)""", (str(message.from_user.id), str(teksto_sen_ligilo), str(user.unikilo), str(user.tipo), str(int(time.time()))))
                  else:
                      #if user.teksto.correct_option_id != None: enketa_tipo = 'quiz'
