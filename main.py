@@ -857,10 +857,10 @@ def sendu_tekston(message):
                         bot.send_message("La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
                 else:
                     #bot.send_message(message.chat.id, "Respondu al sendita per **mi** messaĝo")
-                    pass
+                    rtf = 0
             else:
                 #bot.send_message(message.chat.id, "Respondu al mesaĝo por influi karmon de uzanto")
-                pass
+                rtf = 0
             
 def responda_ligilo(tekst):
     if tekst.find('https://t.me/Esperantujoo/') != -1 and len(tekst) > 26 + ligila_longeco:  
