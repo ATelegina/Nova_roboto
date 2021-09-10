@@ -43,7 +43,10 @@ class User:
         self.ligilo = None
 
 bot = telebot.TeleBot(TOKEN)
-
+@bot.message_handler(commands=['montrialdariafiuzantojn'])
+def send_fioj(message):
+      for fifiuzanto in cursor.execute("SELECT uzanta_id FROM blokituloj"):  
+          bot.send_message(message.chat.id, str(fifiuzanto))
 @bot.message_handler(commands=['start', 'komencu'])
 def send_welcome(message):
     bot.reply_to(message, "La ludo komencu!")
