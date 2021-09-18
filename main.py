@@ -3,14 +3,8 @@
 # =============================================================================
 
 ĉu_testo = False
-if ĉu_testo:
-    TOKEN = os.getenv("TOKEN_TEST")
-    ne_id = os.getenv("ID_TEST")
-    ligila_longeco = 4
-    path = os.getenv("PATH_TEST")
-    nomo_de_roboto = os.getenv("NOM_TEST")
-else:
-    TOKEN = VERA_TOKEN
+if ĉu_testo == False:
+    TOKEN = "1938071091:AAHF9mOw0YevCNcItxbEN94uIYwkRlUBTz0"
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
