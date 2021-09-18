@@ -1,9 +1,6 @@
 # =============================================================================
 # 
 # =============================================================================
-from dotenv import load_dotenv
-import os
-load_dotenv()
 
 ĉu_testo = False
 if ĉu_testo:
@@ -13,7 +10,7 @@ if ĉu_testo:
     path = os.getenv("PATH_TEST")
     nomo_de_roboto = os.getenv("NOM_TEST")
 else:
-    TOKEN = os.getenv("VERA_TOKEN")
+    TOKEN = VERA_TOKEN
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
