@@ -1087,19 +1087,44 @@ def certas_demando(message):
                      else:
                          msg = bot.send_message(ne_id, user.teksto)
                  elif user.tipo != "poll" and user.tipo != "glumarko": 
-                    if responda_ligilo(str(user.caption)) != None:
+                    if user.caption != None:
+                         print("lll"+ str(user.caption) + "lll")
                          respondato, capcio = responda_ligilo(user.caption)
                     else:
                         respondato = None
                          
                  if user.tipo == 'glumarko': msg = bot.send_sticker(ne_id, user.teksto)
-                 if user.tipo == 'movbildo': msg = bot.send_animation(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
-                 if user.tipo == 'voice': msg = bot.send_voice(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
-                 if user.tipo == 'document': msg = bot.send_document(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
-                 if user.tipo == 'video': msg = bot.send_video(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
+                 if user.tipo == 'movbildo': 
+                     try:
+                         msg = bot.send_animation(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
+                     except Exception as e:
+                         msg = bot.send_animation(ne_id, user.teksto, caption = user.caption)
+                 if user.tipo == 'voice': 
+                     try:
+                         msg = bot.send_voice(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
+                     except Exception as e:
+                         msg = bot.send_voice(ne_id, user.teksto, caption = user.caption)
+                 if user.tipo == 'document': 
+                     try:
+                         msg = bot.send_document(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
+                     except Exception as e:
+                         msg = bot.send_document(ne_id, user.teksto, caption = user.caption)
+                 if user.tipo == 'video':
+                     try:
+                         msg = bot.send_video(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
+                     except Exception as e:
+                         msg = bot.send_video(ne_id, user.teksto, caption = user.caption)
                  if user.tipo == 'video_note': msg = bot.send_video_note(ne_id, user.teksto)
-                 if user.tipo == 'audio': msg = bot.send_audio(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
-                 if user.tipo == 'bildo': msg = bot.send_photo(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato) 
+                 if user.tipo == 'audio': 
+                     try:
+                         msg = bot.send_audio(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato)
+                     except Exception as e:
+                         msg = bot.send_audio(ne_id, user.teksto, caption = user.caption)
+                 if user.tipo == 'bildo':
+                     try:
+                         msg = bot.send_photo(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato) 
+                     except Exception as e:
+                         msg = bot.send_photo(ne_id, user.teksto, caption = user.caption)  
                  if user.tipo == 'poll' : 
                      if user.teksto.correct_option_id != None: enketa_tipo = 'quiz'
                      else: enketa_tipo = None
