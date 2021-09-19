@@ -4,7 +4,7 @@
 
 ĉu_testo = False
 if ĉu_testo == False:
-    TOKEN = os.environ("VERA_TOKEN")
+    TOKEN = os.environ["VERA_TOKEN"]
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
