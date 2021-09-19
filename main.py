@@ -1,12 +1,14 @@
 # =============================================================================
 # 
 # =============================================================================
+from dotenv import load_dotenv
 import os
-from boto.s3.connection import S3Connection
+load_dotenv()
+#from boto.s3.connection import S3Connection
 #s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 ĉu_testo = False
 if ĉu_testo == False:
-    TOKEN = os.environ["VERA_TOKEN"]
+    TOKEN = os.getenv["VERA_TOKEN"]
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
