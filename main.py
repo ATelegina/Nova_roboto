@@ -4,7 +4,7 @@
 
 ĉu_testo = False
 if ĉu_testo == False:
-    TOKEN = VERA_TOKEN
+    TOKEN = "1938071091:AAHF9mOw0YevCNcItxbEN94uIYwkRlUBTz0"
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
