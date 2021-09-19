@@ -2,6 +2,7 @@
 # 
 # =============================================================================
 import os
+from boto.s3.connection import S3Connection
 ĉu_testo = False
 if ĉu_testo == False:
     TOKEN = os.environ["VERA_TOKEN"]
