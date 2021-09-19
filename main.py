@@ -8,7 +8,7 @@ load_dotenv()
 #s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 ĉu_testo = False
 if ĉu_testo == False:
-    TOKEN = os.getenv["VERA_TOKEN"]
+    TOKEN = os.getenv("VERA_TOKEN")
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
