@@ -9,6 +9,7 @@ load_dotenv()
 ĉu_testo = False
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
+    print("lll" + TOKEN +  "lll")
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
