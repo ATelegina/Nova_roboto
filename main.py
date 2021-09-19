@@ -9,6 +9,8 @@ load_dotenv()
 ĉu_testo = False
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
+    TOKEN = str(TOKEN)
+    TOKEN = TOKEN.translate({ ord(c): None for c in '""' })
     print("lll" + TOKEN +  "lll")
     ne_id = -1001463711396
     ligila_longeco = 6
