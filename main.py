@@ -2,10 +2,10 @@
 # 
 # =============================================================================
 import os
-from boto.s3.connection import S3Connection
+#from boto.s3.connection import S3Connection
 ĉu_testo = False
 if ĉu_testo == False:
-    TOKEN = os.environ["VERA_TOKEN"]
+    TOKEN = os.environ.get["VERA_TOKEN"]
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
