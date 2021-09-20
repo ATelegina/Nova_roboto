@@ -4,14 +4,12 @@
 from dotenv import load_dotenv
 import os
 load_dotenv()
-#from boto.s3.connection import S3Connection
-#s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
+
 ĉu_testo = False
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
     TOKEN = str(TOKEN)
     TOKEN = TOKEN.translate({ ord(c): None for c in '""' })
-    print("lll" + TOKEN +  "lll")
     ne_id = -1001463711396
     ligila_longeco = 6
     path = "mesagharo.db"
@@ -62,6 +60,56 @@ def send_welcome(message):
 @bot.message_handler(commands=['versio'])
 def send_version_de_robotino(message):
     bot.reply_to(message, "Versio: " + versio)    
+@bot.message_handler(commands=['retiri', 'nuligi'])
+def retiru_malamon(message):
+    if message.reply_to_message:
+                cu_robotino = str(message.reply_to_message)
+                usernameilo = cu_robotino.find('username')
+                cu_robotino = cu_robotino[usernameilo+12:usernameilo+24]
+                #bot.send_message(message.chat.id, message)
+                if cu_robotino == nomo_de_roboto:
+                    if int(message.reply_to_message.date) + 3600 > int(time.time()):
+                                        nombro = 0
+                                        for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),)).fetchall():
+                                                nombro += 1
+                                                fiuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),))                                                                          
+                                        fiuzanto = ''.join(str(x) for x in fiuzanto)
+                                        fiuzanto = fiuzanto.translate({ ord(c): None for c in "(),'" })
+# =============================================================================
+#                                         if nombro != 0:
+#                                             nombro = len(fiuzanto) / nombro
+#                                             fiuzanto = fiuzanto[:int(nombro)]
+# =============================================================================
+                                        if nombro == 0:
+                                            bot.send_message(message.chat.id, "Mi ne volas ke vi nuligu vian voĉdonon")
+                                            cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ''""").fetchall()
+                                            return
+                        
+                                        cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ? AND raportanto = ?""", (str(fiuzanto), str(message.from_user.id))).fetchall()
+                                        cursor.execute("""DELETE FROM karmo_b WHERE bonulo = ? AND raportanto = ?""", (str(fiuzanto), str(message.from_user.id))).fetchall()
+                                        mesagharo.commit()
+                                        
+                                        i = 0
+                                        for kio in cursor.execute("""SELECT raportanto FROM karmo WHERE fiuzanto = ?""", (str(fiuzanto),)).fetchall():
+                                            i-=1 
+                                        for kio in cursor.execute("""SELECT raportanto FROM karmo_b WHERE bonulo = ?""", (str(fiuzanto),)).fetchall():
+                                            i+=1    
+                                        if i < -4:
+                                            cursor.execute("""INSERT INTO blokituloj VALUES (?,?,?)""", (str(fiuzanto), str(int(time.time())), str(int(time.time()) + 3600),))
+                                            cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ?""", (str(fiuzanto),)).fetchall()
+                                            cursor.execute("""DELETE FROM karmo_b WHERE bonulo = ?""", (str(fiuzanto),)).fetchall()
+                                            mesagharo.commit()
+                                            bot.send_message(message.chat.id, "La uzanto estos silentigita dum unu horo")
+                                            try:
+                                                time.sleep(0.3)
+                                                bot.delete_message(message.chat.id, message.reply_to_message.message_id)
+                                            except Exception as e:
+                                                pass
+                                        else:
+                                            if i > 0 : bot.send_message(message.chat.id, "Karmo de la uzanto: +" + str(i))
+                                            else: bot.send_message(message.chat.id, "Karmo de la uzanto: " + str(i))
+                    else:
+                        bot.send_message(message.chat.id, "La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
 @bot.message_handler(commands=['redaktu'])
 def redaktu_tekston(message):
  if message.chat.type == "private": 
@@ -296,14 +344,16 @@ def sendu_tekston(message):
                      for uzanta_id in cursor.execute("SELECT uzanta_id FROM blokituloj"):
                          uzanta_id = ''.join(str(x) for x in uzanta_id)
                          if str(idilo) == uzanta_id:
-                             restanta_tempo = cursor.execute("""SELECT fino FROM blokituloj WHERE uzanta_id = ?""", (uzanta_id,))
+                             restanta_tempo = cursor.execute("""SELECT fino FROM blokituloj WHERE uzanta_id = ? ORDER BY fino DESC""", (uzanta_id,)).fetchone()
                              restanta_tempo = ''.join(str(x) for x in restanta_tempo)
                              restanta_tempo = restanta_tempo.translate({ ord(c): None for c in "(),'" })
                              restanta_tempo = int(restanta_tempo) - int(int(time.time()))
                              if restanta_tempo < 0:
                                  cursor.execute("""DELETE FROM blokituloj WHERE uzanta_id = ?""", (str(uzanta_id),)).fetchall()
+                                 mesagharo.commit()
                                  bot.send_message(message.chat.id, "Vi denove povas ĵeti galantvotojn per mi. Gratulon!")
                              else: bot.send_message(message.chat.id, "Vi malperdos kontrolon post " + str(restanta_tempo) + " sekundoj")
+                             restanta_tempo = 0
                              return
                      for frazo in cursor.execute("SELECT teksto FROM vortoj"):
                         frazo = ''.join(str(x) for x in frazo)
@@ -500,60 +550,9 @@ def sendu_tekston(message):
                                     horoj = message.text[7:9]
                                 if horoj.isnumeric():
                                     horoj = int(horoj)
-                                    if horoj < 28:
-                                        if message.reply_to_message.text: 
-                                            teksto = message.reply_to_message.text
-                                            tipo = "teksto"
-                                            unikilo = None
-                                        if message.reply_to_message.video_note: 
-                                            teksto = message.reply_to_message.video_note.file_id
-                                            tipo = "video_note"
-                                            unikilo = message.reply_to_message.video_note.file_unique_id
-                                        if message.reply_to_message.video: 
-                                            teksto = message.reply_to_message.video.file_id
-                                            tipo = "video"
-                                            unikilo = message.reply_to_message.video.file_unique_id
-                                        elif message.reply_to_message.sticker: 
-                                            teksto = message.reply_to_message.sticker.file_id
-                                            unikilo = message.reply_to_message.sticker.file_unique_id                                          
-                                            tipo = "glumarko"
-                                        elif message.reply_to_message.audio:
-                                            teksto = message.reply_to_message.audio.file_id
-                                            tipo = "audio"
-                                            unikilo = message.reply_to_message.audio.file_unique_id
-                                        elif message.reply_to_message.voice:
-                                            teksto = message.reply_to_message.voice.file_id
-                                            tipo = "voice"
-                                            unikilo = message.reply_to_message.voice.file_unique_id
-                                        elif message.reply_to_message.document:
-                                            teksto = message.reply_to_message.document.file_id
-                                            tipo = "document"
-                                            unikilo = message.reply_to_message.document.file_unique_id
-                                        elif message.reply_to_message.photo:
-                                            teksto = message.reply_to_message.photo[-1].file_id
-                                            unikilo = message.reply_to_message.photo[-1].file_unique_id
-                                            tipo = "bildo"
-                                        elif message.reply_to_message.animation:
-                                            teksto = message.reply_to_message.animation.file_id
-                                            tipo = "movbildo"
-                                            unikilo = message.reply_to_message.animation.file_unique_id
-                                        elif str(message.reply_to_message).find("poll") != -1:
-                                            teksto = message.reply_to_message.poll
-                                            unikilo = teksto.question
-                                            tipo = 'poll'
-                                            i = 0
-                                            while i < 11:
-                                                try:    
-                                                    opcioj = teksto.options[i].text
-                                                    i +=1
-                                                    unikilo = unikilo + kodilo + opcioj
-                                                except Exception as e:
-                                                    i = 11
+                                    if horoj < 28:                                        
                                         #print("Reply-unikilo por bloki" + unikilo)    
-                                        if tipo != "teksto":    
-                                            uzanta_id = cursor.execute("""SELECT uzanta_id FROM historio WHERE tipo = ? AND unikilo = ?""", (str(tipo), str(unikilo)))
-                                        else:
-                                            uzanta_id = cursor.execute("""SELECT uzanta_id FROM historio WHERE tipo = ? AND teksto = ?""", (str(tipo), str(teksto)))
+                                        uzanta_id = cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),))
                                         uzanta_id = ''.join(str(x) for x in uzanta_id)
                                         uzanta_id = uzanta_id.translate({ ord(c): None for c in "(),'" })
                                         cursor.execute("""INSERT INTO blokituloj VALUES (?, ?, ?)""", (str(uzanta_id), str(int(time.time())), str(int(time.time()) + 3600*horoj)))
@@ -829,63 +828,18 @@ def sendu_tekston(message):
                 #bot.send_message(message.chat.id, message)
                 if cu_robotino == nomo_de_roboto:
                     if int(message.reply_to_message.date) + 3600 > int(time.time()):
-                                        if message.reply_to_message.text: 
-                                            teksto = message.reply_to_message.text
-                                            tipo = "teksto"
-                                        elif message.reply_to_message.video_note: 
-                                            teksto = message.reply_to_message.video_note.file_unique_id
-                                            tipo = "video_note"
-                                        elif message.reply_to_message.video: 
-                                            teksto = message.reply_to_message.video.file_unique_id
-                                            tipo = "video"
-                                        elif message.reply_to_message.sticker: 
-                                            teksto = message.reply_to_message.sticker.file_unique_id
-                                           
-                                            tipo = "glumarko"
-                                        elif message.reply_to_message.audio:
-                                            teksto = message.reply_to_message.audio.file_unique_id
-                                            tipo = "audio"
-                                        elif message.reply_to_message.voice:
-                                            teksto = message.reply_to_message.voice.file_unique_id
-                                            tipo = "voice"
-                                        elif message.reply_to_message.document:
-                                            teksto = message.reply_to_message.document.file_unique_id
-                                            tipo = "document"
-                                        elif message.reply_to_message.photo:
-                                            teksto = message.reply_to_message.photo[-1].file_unique_id
-                                            tipo = "bildo"
-                                        elif message.reply_to_message.animation:
-                                            teksto = message.reply_to_message.animation.file_unique_id
-                                            tipo = "movbildo"
-                                        elif str(message.reply_to_message).find("poll") != -1:
-                                            teksto = message.reply_to_message.poll
-                                            unikilo = teksto.question
-                                            i = 0
-                                            while i < 11:
-                                                try:    
-                                                    opcioj = teksto.options[i].text
-                                                    i +=1
-                                                    unikilo = unikilo + kodilo + opcioj
-                                                except Exception as e:
-                                                    i = 11
-                                            tipo = 'poll'
-                                            teksto = unikilo
-                                        if tipo != "teksto":    
-                                            nombro = 0
-                                            for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE unikilo = ?""", (str(teksto),)).fetchall():
+                                        nombro = 0
+                                        for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),)).fetchall():
                                                 nombro += 1
-                                            fiuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE unikilo = ?""", (str(teksto),))                                           
-                                        else:
-                                            nombro = 0
-                                            for i in cursor.execute("""SELECT uzanta_id FROM historio WHERE teksto = ?""", (str(teksto),)).fetchall():
-                                                nombro += 1
-                                            fiuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE teksto = ?""", (str(teksto),))
+                                                fiuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),))                                                                          
                                         fiuzanto = ''.join(str(x) for x in fiuzanto)
                                         fiuzanto = fiuzanto.translate({ ord(c): None for c in "(),'" })
-                                        if nombro != 0:
-                                            nombro = len(fiuzanto) / nombro
-                                            fiuzanto = fiuzanto[:int(nombro)]
-                                        if fiuzanto == "":
+# =============================================================================
+#                                         if nombro != 0:
+#                                             nombro = len(fiuzanto) / nombro
+#                                             fiuzanto = fiuzanto[:int(nombro)]
+# =============================================================================
+                                        if nombro == 0:
                                             bot.send_message(message.chat.id, "Laboru forte, sed ne tro. Vi ne povas silentigi min.")
                                             cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ''""").fetchall()
                                             return
@@ -933,63 +887,14 @@ def sendu_tekston(message):
                 #bot.send_message(message.chat.id, message)
                 if cu_robotino == nomo_de_roboto:
                     if int(message.reply_to_message.date) + 3600 > int(time.time()):
-                                        if message.reply_to_message.text: 
-                                            teksto = message.reply_to_message.text
-                                            tipo = "teksto"
-                                        elif message.reply_to_message.video_note: 
-                                            teksto = message.reply_to_message.video_note.file_unique_id
-                                            tipo = "video_note"
-                                        elif message.reply_to_message.video: 
-                                            teksto = message.reply_to_message.video.file_unique_id
-                                            tipo = "video"
-                                        elif message.reply_to_message.sticker: 
-                                            teksto = message.reply_to_message.sticker.file_unique_id
-                                           
-                                            tipo = "glumarko"
-                                        elif message.reply_to_message.audio:
-                                            teksto = message.reply_to_message.audio.file_unique_id
-                                            tipo = "audio"
-                                        elif message.reply_to_message.voice:
-                                            teksto = message.reply_to_message.voice.file_unique_id
-                                            tipo = "voice"
-                                        elif message.reply_to_message.document:
-                                            teksto = message.reply_to_message.document.file_unique_id
-                                            tipo = "document"
-                                        elif message.reply_to_message.photo:
-                                            teksto = message.reply_to_message.photo[-1].file_unique_id
-                                            tipo = "bildo"
-                                        elif message.reply_to_message.animation:
-                                            teksto = message.reply_to_message.animation.file_unique_id
-                                            tipo = "movbildo"
-                                        elif str(message.reply_to_message).find("poll") != -1:
-                                            teksto = message.reply_to_message.poll
-                                            unikilo = teksto.question
-                                            i = 0
-                                            while i < 11:
-                                                try:    
-                                                    opcioj = teksto.options[i].text
-                                                    i +=1
-                                                    unikilo = unikilo + kodilo + opcioj
-                                                except Exception as e:
-                                                    i = 11
-                                            tipo = 'poll'
-                                            teksto = unikilo  
-                                        if tipo != "teksto":    
-                                            nombro = 0
-                                            for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE unikilo = ?""", (str(teksto),)).fetchall():
+                                        
+                                        nombro = 0
+                                        for i in cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),)).fetchall():
                                                 nombro += 1
-                                            bonuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE unikilo = ?""", (str(teksto),))                                           
-                                        else:
-                                            nombro = 0
-                                            for i in cursor.execute("""SELECT uzanta_id FROM historio WHERE teksto = ?""", (str(teksto),)).fetchall():
-                                                nombro += 1
-                                            bonuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE teksto = ?""", (str(teksto),))
+                                        bonuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),))
                                         bonuzanto = ''.join(str(x) for x in bonuzanto)
                                         bonuzanto = bonuzanto.translate({ ord(c): None for c in "(),'" })
-                                        if nombro != 0:
-                                            nombro = len(bonuzanto) / nombro
-                                            bonuzanto = bonuzanto[:int(nombro)]
-                                        if bonuzanto == "":
+                                        if nombro == 0:
                                             bot.send_message(message.chat.id, "Ho, ĉu vi simpas?")
                                             cursor.execute("""DELETE FROM karmo_b WHERE bonulo = ''""").fetchall()
                                             return
@@ -1007,20 +912,8 @@ def sendu_tekston(message):
                                             i+=1
                                         for kiob in cursor.execute("""SELECT raportanto FROM karmo WHERE fiuzanto = ?""", (str(bonuzanto),)).fetchall():
                                             i-=1    
-                                        if i < -4:
-                                            cursor.execute("""INSERT INTO blokituloj VALUES (?,?,?)""", (str(fiuzanto), str(int(time.time())), str(int(time.time()) + 3600),))
-                                            cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ?""", (str(fiuzanto),)).fetchall()
-                                            cursor.execute("""DELETE FROM karmo_b WHERE bonulo = ?""", (str(fiuzanto),)).fetchall()
-                                            mesagharo.commit()
-                                            bot.send_message(message.chat.id, "La uzanto estos silentigita dum unu horo")
-                                            try:
-                                                time.sleep(0.3)
-                                                bot.delete_message(message.chat.id, message.reply_to_message.message_id)
-                                            except Exception as e:
-                                                pass
-                                        else:
-                                            if i > 0 : bot.send_message(message.chat.id, "Karmo de la uzanto: +" + str(i))
-                                            else: bot.send_message(message.chat.id, "Karmo de la uzanto: " + str(i))
+                                        if i > 0 : bot.send_message(message.chat.id, "Karmo de la uzanto: +" + str(i))
+                                        else: bot.send_message(message.chat.id, "Karmo de la uzanto: " + str(i))
                     else:
                         bot.send_message(message.chat.id, "La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
                 else:
@@ -1124,7 +1017,7 @@ def certas_demando(message):
                      try:
                          msg = bot.send_photo(ne_id, user.teksto, caption = capcio, reply_to_message_id=respondato) 
                      except Exception as e:
-                         msg = bot.send_photo(ne_id, user.teksto, caption = user.caption)  
+                         msg = bot.send_photo(ne_id, user.teksto, caption = user.caption) 
                  if user.tipo == 'poll' : 
                      if user.teksto.correct_option_id != None: enketa_tipo = 'quiz'
                      else: enketa_tipo = None
