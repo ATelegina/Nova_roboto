@@ -73,6 +73,10 @@ def retiru_malamon(message):
                                         for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),)).fetchall():
                                                 nombro += 1
                                                 fiuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),))                                                                          
+                                        if nombro == 0:
+                                            bot.send_message(message.chat.id, "Mi ne volas ke vi nuligu vian voĉdonon")
+                                            #cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ''""").fetchall()
+                                            return
                                         fiuzanto = ''.join(str(x) for x in fiuzanto)
                                         fiuzanto = fiuzanto.translate({ ord(c): None for c in "(),'" })
 # =============================================================================
@@ -80,10 +84,6 @@ def retiru_malamon(message):
 #                                             nombro = len(fiuzanto) / nombro
 #                                             fiuzanto = fiuzanto[:int(nombro)]
 # =============================================================================
-                                        if nombro == 0:
-                                            bot.send_message(message.chat.id, "Mi ne volas ke vi nuligu vian voĉdonon")
-                                            cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ''""").fetchall()
-                                            return
                         
                                         cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ? AND raportanto = ?""", (str(fiuzanto), str(message.from_user.id))).fetchall()
                                         cursor.execute("""DELETE FROM karmo_b WHERE bonulo = ? AND raportanto = ?""", (str(fiuzanto), str(message.from_user.id))).fetchall()
