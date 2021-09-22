@@ -832,8 +832,6 @@ def sendu_tekston(message):
                                         for or_bi in cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),)).fetchall():
                                                 nombro += 1
                                                 fiuzanto = cursor.execute("""SELECT uzanta_id FROM historio WHERE idilo = ?""", (str(message.reply_to_message.message_id),))                                                                          
-                                        fiuzanto = ''.join(str(x) for x in fiuzanto)
-                                        fiuzanto = fiuzanto.translate({ ord(c): None for c in "(),'" })
 # =============================================================================
 #                                         if nombro != 0:
 #                                             nombro = len(fiuzanto) / nombro
@@ -843,6 +841,8 @@ def sendu_tekston(message):
                                             bot.send_message(message.chat.id, "Laboru forte, sed ne tro. Vi ne povas silentigi min.")
                                             cursor.execute("""DELETE FROM karmo WHERE fiuzanto = ''""").fetchall()
                                             return
+                                        fiuzanto = ''.join(str(x) for x in fiuzanto)
+                                        fiuzanto = fiuzanto.translate({ ord(c): None for c in "(),'" })
                                         for cu_jam in cursor.execute("""SELECT raportanto FROM karmo WHERE fiuzanto = ?""", (fiuzanto,)).fetchall(): 
                                             cu_jam = ''.join(str(x) for x in cu_jam)
                                             cu_jam = cu_jam.translate({ ord(c): None for c in "(),'"})
