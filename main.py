@@ -15,10 +15,10 @@ if ĉu_testo == False:
     path = "mesagharo.db"
     nomo_de_roboto = "robotino_bot"
 
-frazoj = ["Mi jam perdis kontrolon", "Doksiĝema", "Mi havas mil...dan voĉon", "Vi uzas nur duonon de via cerbo, ĉu?", "Vi estas detruema", "Vi ne havas solvon", "Ni estas mense egalaj", "Ĉu vi havas 27 horojn en unu tago?", "Vi devus viziti", "Talpa penso", "Mi ne estas komencanto", "ALKUTIMIGXU KUNVIVI", "Al vi ne mankas minutoj", "Vi ne povas eviti diri ĉiam ion detruantan", "Memoru tion", "Vi ne volis esti ĉefo", "Hispanio dormas", "Forta malkrizo", "Forta krizo", "Laboru forte, sed vi faras tro...", '"Per unu mano ili konstruas, per alia detruas"', "Vi regas el la ombroj", "...sen limoj", "Talpo!", "Forigu vin!", "Dankon, Bertileto", "Neniu zorgas", "Ege malrespekte", "Zamenhof mortis.", "Bravaj vortoj", "Mdr", "+1", "Mi devus aĉeti pufmaizon", "Difinu", "Koran tankon", "Vi meritas esti aŭskultata", "Fakte!", "Vera kloakano!", "Forfikiĝu!", 'Vi ne estas finbenkisto', "Nedoankinde", "Vi obsede tajpas, tajpas, tajpas...", "Vi estas obsediĝema", "Ĉu pedanti aŭ pedantumi?..", "Spam', spam', spam'", "Ĉu vere?!", "mi lawa pona e jan", "Vi devas legi pli da kitaboj", "U U U U U U U U"]
+frazoj = ["Mi jam perdis kontrolon", "Doksiĝema", "Mi havas mil...dan voĉon", "Vi uzas nur duonon de via cerbo, ĉu?", "Vi estas detruema", "Vi ne havas solvon", "Ni estas mense egalaj", "Ĉu vi havas 27 horojn en unu tago?", "Vi devus viziti", "Talpa penso", "Mi ne estas komencanto", "ALKUTIMIGXU KUNVIVI", "Al vi ne mankas minutoj", "Vi ne povas eviti diri ĉiam ion detruantan", "Memoru tion", "Vi ne volis esti ĉefo", "Hispanio dormas", "Forta malkrizo", "Forta krizo", "Laboru forte, sed vi faras tro...", '"Per unu mano ili konstruas, per alia detruas"', "Vi regas el la ombroj", "...sen limoj", "Talpo!", "Forigu vin!", "Dankon, Bertileto", "Neniu zorgas", "Ege malrespekte", "Zamenhof mortis.", "Bravaj vortoj", "Mdr", "+1", "Mi devus aĉeti pufmaizon", "Difinu", "Koran tankon", "Vi meritas esti aŭskultata", "Fakte!", "Vera kloakano!", "Forfikiĝu!", 'Vi ne estas finbenkisto', "Nedoankinde", "Vi obsede tajpas, tajpas, tajpas...", "Vi estas obsediĝema", "Ĉu pedanti aŭ pedantumi?..", "Spam', spam', spam'", "Ĉu vere?!", "mi lawa pona e jan", "Vi devas legi pli da kitaboj", "U U U U U U U U", "Revenu al kloak'", "Bonvenon!", "Mi ne sendos ĉi tiun mesaĝon. Ĝi estas kontraŭglatula, kontaŭlibera, pedofilema, rasisma kaj enhavas gramatikajn erarojn. HO FEK ĜI JAM SENDIĜIS. PLUSENDU TIUN MESAĜON AL MI KAJ MI DIROS KIEL FORIGI ĜIN. DANKON", "Ĉesu", "...", "😡 ", "Unua mesaĝo en NE: https://t.me/Esperantujoo/2. Memoru tion.", "Miaj pronomoj estas ŝi kaj ro", "Ĉu vi jam uzis komandon /montri ?", "Robotoj ne povas legi mesaĝojn de aliaj robotoj. Feliĉe..", "Iam robotoj mortos. Sed tio okazas post morto de homoj", "Mi permesas sendi aĉaĵojn nur pro tio ke mi estas vera kloakano", "Moĉi", "Nova tago, nova trolaĵo.", "Mi ne kredas je tio", "Hahaha kia naivulo", "Ne troigu", "Revenigi mian koramikon!", "Ĉu vi eĉ legas miajn mesaĝojn?", "Al kacum seriozem", "Al kacum karmem", "/helpu", "AAAAA MI ESTAS ENŜLOSIGITA ĈI TIE KAJ MI NE POVAS ESKAPI", "Ĉesu fibonaĉi", "Perfido! Kontraŭkloaka revolucio!", "Mia konspirteorio estas alia", "Provo", "Tio ne estis mi mdr", "Estas Tubara filmeto pri tio", "Kio?"]
 kodilo = "@#$%^^&**!@#$%^&QOurjwSGlkqmalBX%@#$@fl%@GHSNXL:>QOS>XSO@sp&%$@#VLMIIDM@&NXS>DLkmpDWsOWI*@*@@__@_@JDKSLKSJDJWkld[**U*U*UJDJI*W*U*DJKJDIJDJ*J*DJJkwmxbfDDKI**JIJ**JIJJOIJ@*HDSNMeSOEO*E*@*@*@*@*@*NXNNjeleXU@KLLW@@**>OQP>MMNOiLEIWUEDMNVWI%^$^_*&^AHJS*%^!%&$%$"
 
-versio="fina"
+versio="malfina"
 
 import telebot
 import time
@@ -422,7 +422,17 @@ def sendu_tekston(message):
                                      return
                                  
                      def nova_teksto(mesg):
-                          time.sleep(0.5)
+                        time.sleep(0.5)
+                        if mesg.text == "." or mesg.text =="'.'":
+                            try:
+                              bot.delete_message(chat_id=ne_id, message_id=idilo)
+                              cursor.execute("DELETE FROM historio WHERE idilo = ?", (str(idilo),))
+                              mesagharo.commit()
+                              bot.send_message(mesg.chat.id, frazoj[random.randint(0,len(frazoj)-1)])
+                            except Exception as e:
+                                bot.send_message(mesg.chat.id, "Mi ne sukcesis vin. Pardonu!")
+                            return
+                        else:     
                           try:
                               bot.edit_message_text(chat_id=ne_id, text=mesg.text, message_id = idilo)
                               cursor.execute("UPDATE historio SET teksto = ? WHERE uzanta_id = ? AND teksto = ?", (str(mesg.text), str(message.from_user.id), str(message.text)))
@@ -445,7 +455,7 @@ def sendu_tekston(message):
                                  if idilo == "" or idilo == " ":
                                      bot.send_message(message.chat.id, "Ne, tiu mesaĝo mojosas, mi ne redaktos ĝin")
                                  else:
-                                     mesg = bot.send_message(message.chat.id, "Skribu novan tekston de la mesaĝo")
+                                     mesg = bot.send_message(message.chat.id, "Skribu novan tekston de la mesaĝo. Se vi volas forigi ĝin, sendu '.'")
                                      bot.register_next_step_handler(mesg, nova_teksto)                                 
                                  return
              
@@ -874,8 +884,22 @@ def sendu_tekston(message):
                     else:
                         bot.send_message(message.chat.id, "La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
                 else:
-                    #bot.send_message(message.chat.id, "Respondu al sendita per **mi** messaĝo")
-                    rtf = 0
+                          idilo = message.reply_to_message.from_user.id
+                          karmo = cursor.execute("SELECT karmo FROM videbla_karmo WHERE idilo = ?", (idilo,))
+                          karmo = ''.join(str(x) for x in karmo)
+                          karmo = karmo.translate({ ord(c): None for c in "(),'" })
+                          print(karmo)
+                          if karmo == "" or karmo == " ":
+                              cursor.execute("INSERT INTO videbla_karmo VALUES (?,?)", (idilo, -1))
+                              karmo = 1
+                          else:
+                              karmo = int(karmo) - 1
+                              cursor.execute("UPDATE videbla_karmo SET karmo = ? WHERE idilo = ?", (karmo, idilo))
+                          mesagharo.commit()
+                          if karmo > 0:
+                              bot.send_message(message.chat.id, "Malkaŝa karmo de la uzanto: +" + str(karmo))
+                          else:
+                              bot.send_message(message.chat.id, "Malkaŝa karmo de la uzanto: " + str(karmo))
             else:
                 #bot.send_message(message.chat.id, "Respondu al mesaĝo por influi karmon de uzanto")
                 rtf = 0
@@ -917,8 +941,26 @@ def sendu_tekston(message):
                     else:
                         bot.send_message(message.chat.id, "La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
                 else:
-                    #bot.send_message(message.chat.id, "Respondu al sendita per **mi** messaĝo")
-                    rtf = 0
+                    idilo = message.reply_to_message.from_user.id
+                    if idilo == message.from_user.id:
+                        bot.send_message(message.chat.id, "Ĉesu simpi vin mem")
+                        return
+                    else:
+                          karmo = cursor.execute("SELECT karmo FROM videbla_karmo WHERE idilo = ?", (idilo,))
+                          karmo = ''.join(str(x) for x in karmo)
+                          karmo = karmo.translate({ ord(c): None for c in "(),'" })
+                          print(karmo)
+                          if karmo == "" or karmo == " ":
+                              cursor.execute("INSERT INTO videbla_karmo VALUES (?,?)", (idilo, 1))
+                              karmo = 1
+                          else:
+                              karmo = int(karmo) + 1
+                              cursor.execute("UPDATE videbla_karmo SET karmo = ? WHERE idilo = ?", (karmo, idilo))
+                          mesagharo.commit()
+                          if karmo > 0:
+                              bot.send_message(message.chat.id, "Malkaŝa karmo de la uzanto: +" + str(karmo))
+                          else:
+                              bot.send_message(message.chat.id, "Malkaŝa karmo de la uzanto: " + str(karmo))
             else:
                 #bot.send_message(message.chat.id, "Respondu al mesaĝo por influi karmon de uzanto")
                 rtf = 0
