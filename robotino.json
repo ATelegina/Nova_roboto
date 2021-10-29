@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "robotino-666666",
+  "private_key_id": "5c29440085f94edb12b759d9fa3c29c32656a6ec",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCoBCJFXT8Ib1dx\nbT3UvaQU496ztTiRJ/AvARbw/RJ2OJ8AJjkDtsLFYRBgfGYx2cfMZkB1pInEXogQ\n1dmLzEJxJR8yRUTUGhNhhzE6k+NXu8gfBGn3xlZGItn4fLpdq4KUl8zpIkvXu76/\n6W37WQeZlEYY1goxQaDDnRkVCL+0E2s5Ul+E3+hGgIA22jaOMpuaafI97R4bd1j5\nqS3ixNRdGMQl14QXYtmCNpCJr5eQ9OZ8MtDhvLFv0zYqQn0SDRom/e40p5JWFqPJ\nVDFBxk4hT9LHFyKUMtsXdl7AKV8xJd55Yom0sCLuSzFzblm3GnyWqDjuLw+19ToY\nLfw/OZgFAgMBAAECggEAAMnwfMpEg/RkVLU65lEbJ8y42gaHLDr8YzwbnQEdA9h2\nXMxHS/DcCAJvHY6zCatXKbmWGM/qfQ3XBu5wQOGeeBXUiEfjlyUvlJHy1/1oh4hN\n2+sdFEBrXW3bOpbRemjzu2FTsAlxzMocQBRCVNqJ2HE02TLZSqHpK597CvlQxbZt\nN0sKUbp/Vc38UFSy88yfwTyxRz83eH+r6ntVqGHhpxJ1rDfj0DIaWnR//ipXqyup\nM70dnOEsEtxJqOzkKaLhJtAs+3HjtfdlRoUzppQRDuxC97Nxzdwxv3y27XL/CE70\naELeZQ/1iW+LncP64XxwyZHehAwsqAUqi4r6nfokAQKBgQDZ7wAECcjjmaA6APXZ\n9FDS2c7X0VMw3PY4ARDGwATrIw2sAqd+0Gh+Nw/tFX80fntFYx/IrPOarNgjA1uC\nYvtY8Jx5EMjo5UgxrBaRkbGXB3K7PJJJBs5G/N7FqzQqGyK01CGC+uII79McYJ1v\n5vHK9O3ZOSggFgs4/XvfhmzgzQKBgQDFXQ1ujZxG++e6TJnzOfp5ossvuP1MM3Eq\n9Jxh/sfyKU9WrWhQeFPiQNdKMj79NJGjpTnX9EKp7zlco3/uFcEZZ3PNxpm7ewWa\nwpqJmUaueEDlI+dwBNFy1Tcf/FE4/hZHe1xBqcRCTjVqQTtiMX3Xo50eXk8N7T7o\n9lsRLKY0GQKBgQDCbu7Oq4QlO1yuI0k0yTqKw3Q9LC5Se/DYCmtTRuGcf0ulWUDi\nbUGsyadV2EYDKY0FXOhwe41jRC4ZHte3vmOM+C5B/O2ii10bo/MGsLuGiUidL+87\nY+0JfHWsWZBSuJ8AQfocB4U+f+kTekc8HQlAD8FcehgIeGJO2Ch6Rk5BSQKBgC/J\nRANMjlYxj/3vpibaFud0nzXC2LGmkvQPnf2sLsVXczpNakBxof3aLUZtvAqau9if\nnM3I+osivQTNIaCH6+U2wzdDqt1WABlknP5L+m0r+KqCcvsQb5YaQeqgsRnXi5Vr\nLP9JF5fmT9CWUsaHrSyVFOnRc9qvYtgNLieOY/+hAoGBAMz7N74bKoyVJ81HO4QV\n8aCc4qq+gFN7zmIzQdw40fxQlHN+6yaRXXnm6vAYZEVQFk9+E27xiyiivnrYUPKi\nBQ9jHGLBXRRTDCv62L8L6A/N7bOetbBbb18pmBzv2XEPPGklCsXy6EW/cAK/ep8m\nObqGzs6pGRBRiE+B3le28UrG\n-----END PRIVATE KEY-----\n",
+  "client_email": "robotino-konto@robotino-666666.iam.gserviceaccount.com",
+  "client_id": "111624872902464593487",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/robotino-konto%40robotino-666666.iam.gserviceaccount.com"
+}
