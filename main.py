@@ -72,7 +72,7 @@ def chat_m(message: types.ChatMemberUpdated):
     old = message.old_chat_member
     new = message.new_chat_member
     if new.status == "member":
-        bot.send_message(message.chat.id,'Bonvenon, kloakano! Mi estas roboto, kiu emas sendi fiaĵojn. Sendu al mi mesaĝon, tajpu "Jes" kaj vidu magion💫')
+        bot.send_message(message.chat.id,'Bonvenon, kloakano! Mi estas roboto, kiu emas sendi fiaĵojn. Sendu al mi private mesaĝon, tajpu tie "Jes" kaj vidu magion💫')
     if old.status == "member":
         bot.send_message(message.chat.id, 'Mi esperas, ke vi jam scias kiel uzi min. Se ne, sendu mesaĝon private')
 @bot.message_handler(commands=['start', 'komencu'])
