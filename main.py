@@ -1240,7 +1240,7 @@ def certas_demando(message):
         except Exception as e:
               print(e)
               time.sleep(0.3)
-              bot.send_message(message.chat.id, "Eraro okazis. Provu denove".format(e))
+              bot.send_message(message.chat.id, "Eraro okazis ({}). Provu denove".format(e))
 
 
 
