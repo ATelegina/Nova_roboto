@@ -74,7 +74,7 @@ def chat_m(message: types.ChatMemberUpdated):
     if new.status == "member":
         bot.send_message(message.chat.id,'Bonvenon, kloakano! Mi estas roboto, kiu emas sendi fiaĵojn. Sendu al mi private mesaĝon, tajpu tie "Jes" kaj vidu magion💫')
     if old.status == "member":
-        bot.send_message(message.chat.id, 'Mi esperas, ke vi jam scias kiel uzi min. Se ne, sendu mesaĝon private')
+        bot.send_message(message.chat.id, '<b>{} jonizulis. Forta malkrizo.</b>'.format(old.user.first_name), parse_mode="html")
 @bot.message_handler(commands=['start', 'komencu'])
 def send_welcome(message):
     bot.reply_to(message, "La ludo komencu!")
