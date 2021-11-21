@@ -10,7 +10,7 @@ load_dotenv()
 import gspread
 
 
-ĉu_testo = True
+ĉu_testo = False
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
     TOKEN = str(TOKEN)
