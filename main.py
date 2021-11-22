@@ -1253,7 +1253,7 @@ def kiom_da_mesagxoj():
     kiom_nun = bot.send_message(ne_id, "Bonan tageron, kloako")
     bot.send_chat_action(ne_id, "typing")
     
-    worksheet = sh.worksheet("historio")
+    worksheet = sh.worksheet("kiom")
     horiz = worksheet.find("Lasta idilo:").row
     lasta_kiom = int(worksheet.cell(horiz, 10).value)
     
