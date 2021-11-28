@@ -10,7 +10,7 @@ load_dotenv()
 import gspread
 
 multe_da_grupoj = False
-ĉu_testo = True
+ĉu_testo = False
 atb_mode = True
 
 if ĉu_testo == False:
