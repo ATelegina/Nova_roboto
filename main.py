@@ -1217,7 +1217,7 @@ def certas_demando(message):
                     sendu_tekston(message)
                     return                   
                  print("klf 1")
-                 message = user.cu
+                 if atb_mode: message = user.cu
                  if atb_mode == False:
                      bot.send_chat_action(message.chat.id, 'typing')
                      bot.send_chat_action(ne_id, 'typing')
