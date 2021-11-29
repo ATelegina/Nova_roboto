@@ -11,7 +11,7 @@ import gspread
 
 multe_da_grupoj = False
 ĉu_testo = False
-atb_mode = True
+atb_mode = False
 
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
