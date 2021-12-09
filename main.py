@@ -1063,6 +1063,9 @@ Se la grupon, kiun vi volas, ne estas en la listo, aldonu min kiel membro aŭ se
                     else:
                         bot.send_message(message.chat.id, "La mesaĝo estas tro malnova, mi ne scias, kiu sendis ĝin")
                 else:
+                    if message.from_user.id in [134428682]:
+                        bot.send_message(message.chat.id, "Vi devus viziti")
+                    else:    
                           worksheet = sh.worksheet("videbla_karmo")
                           idilo = message.reply_to_message.from_user.id
                           if "" in worksheet.col_values(1):
