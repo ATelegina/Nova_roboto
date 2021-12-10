@@ -675,7 +675,7 @@ Se la grupon, kiun vi volas, ne estas en la listo, aldonu min kiel membro aŭ se
                          bot.register_next_step_handler(message, certas_demando)
                      
     elif str(message.chat.id) == str(ne_id):
-      if message.from_user.id == 777000:
+      if message.from_user.id in [777000, 136817688]:
             bot.delete_message(message.chat.id, message.message_id)  
       elif message.text:
         if message.text.find('/bloki') != -1:
