@@ -1355,7 +1355,7 @@ def kiom_da_mesagxoj():
     horiz = worksheet.find("Lasta idilo:").row
     lasta_kiom = int(worksheet.cell(horiz, 2).value)
     
-    bot.send_message(ne_id, "En la lastaj 24 horoj estas senditaj <b>{}</b> mesaĝoj".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")
+    bot.send_message(ne_id, "En la lastaj 24 horoj estis senditaj <b>{}</b> mesaĝoj".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")
     
     worksheet.update_cell(horiz, 2, int(kiom_nun.id) + 1)
    
