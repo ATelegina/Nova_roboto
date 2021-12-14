@@ -41,6 +41,17 @@ print(path)
 
 bot = telebot.TeleBot(TOKEN)
 
+@bot.message_handler(commands=['informo', 'informu'])
+def sendu_informon(message):
+    if message.reply_to_message:
+        bot.reply_to(message, """<i>Id-ilo:</i> {}
+<i>Tempo:</i> {}
+<i>Id-ilo de sendinto:</i> {}""".format(message.reply_to_message.id, message.reply_to_message.date, message.reply_to_message.from_user.id), parse_mode="html")  
+    else:
+        bot.reply_to(message, """<i>Id-ilo:</i> {}
+<i>Tempo:</i> {}
+<i>Id-ilo de sendinto:</i> {}""".format(message.id, message.date, message.from_user.id), parse_mode="html")
+        
 @bot.message_handler(content_types = ['text', 'photo', 'video', 'animation', 'sticker', 'document', 'audio', 'voice', 'poll', "video_note"])
 def sendu_tekston(message):
     elif str(message.chat.id) == str(ne_id):
