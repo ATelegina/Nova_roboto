@@ -54,7 +54,7 @@ def sendu_informon(message):
         
 @bot.message_handler(content_types = ['text', 'photo', 'video', 'animation', 'sticker', 'document', 'audio', 'voice', 'poll', "video_note"])
 def sendu_tekston(message):
-    elif str(message.chat.id) == str(ne_id):
+    if str(message.chat.id) == str(ne_id):
       if message.from_user.id == 777000:
             bot.delete_message(message.chat.id, message.message_id)
             
