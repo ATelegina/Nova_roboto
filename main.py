@@ -55,7 +55,7 @@ def sendu_informon(message):
 @bot.message_handler(content_types = ['text', 'photo', 'video', 'animation', 'sticker', 'document', 'audio', 'voice', 'poll', "video_note"])
 def sendu_tekston(message):
     if str(message.chat.id) == str(ne_id):
-      if message.from_user.id == 777000:
+      if message.from_user.id in [777000, 136817688]:
             bot.delete_message(message.chat.id, message.message_id)
             
 def kiom_da_mesagxoj():
