@@ -14,6 +14,7 @@ if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
     TOKEN = str(TOKEN)
     TOKEN = TOKEN.translate({ ord(c): None for c in '""' })
+    TOKEN = "1585095785:AAEm6uWijaZbeSU_QXBBAhGrMl2KuTj8nTg"
     #ne_id = -709830845 
     ne_id = -1001463711396    
     ligila_longeco = 6
