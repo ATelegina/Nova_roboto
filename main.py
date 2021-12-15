@@ -53,11 +53,6 @@ def sendu_informon(message):
 <i>Tempo:</i> {}
 <i>Id-ilo de sendinto:</i> {}""".format(message.id, message.date, message.from_user.id), parse_mode="html")
         
-@bot.message_handler(content_types = ['text', 'photo', 'video', 'animation', 'sticker', 'document', 'audio', 'voice', 'poll', "video_note"])
-def sendu_tekston(message):
-    if str(message.chat.id) == str(ne_id):
-      if message.from_user.id in [777000, 136817688]:
-            bot.delete_message(message.chat.id, message.message_id)
  
 @bot.message_handler(commands=['versio'])
 def send_version_de_robotino(message):
@@ -72,6 +67,13 @@ def chat_m(message: types.ChatMemberUpdated):
         bot.send_message(message.chat.id,'Bonvenon, nova kloakano! Mi estas roboto kiu faras nenion utilan. ({})'.format(random.choice(memeoj)))
     if old.status == "member":
         bot.send_message(message.chat.id, "<b><a href='tg://user?id={userid}'>{}</a> jonizulis. Forta krizo.</b>".format(old.user.first_name, userid = old.user.id), parse_mode="html")
+        
+@bot.message_handler(content_types = ['text', 'photo', 'video', 'animation', 'sticker', 'document', 'audio', 'voice', 'poll', "video_note"])
+def sendu_tekston(message):
+    if str(message.chat.id) == str(ne_id):
+      if message.from_user.id in [777000, 136817688]:
+            bot.delete_message(message.chat.id, message.message_id)
+
 def kiom_da_mesagxoj():
     kiom_nun = bot.send_message(ne_id, "Bonan tageron, kloako")
     bot.send_chat_action(ne_id, "typing")
