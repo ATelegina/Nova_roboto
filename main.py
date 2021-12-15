@@ -3,12 +3,13 @@ import os
 import schedule
 import threading
 load_dotenv()
-
+import random
 import gspread
 
 multe_da_grupoj = False
 ĉu_testo = False
 atb_mode = False
+versio = "stulta"
 
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
@@ -57,7 +58,20 @@ def sendu_tekston(message):
     if str(message.chat.id) == str(ne_id):
       if message.from_user.id in [777000, 136817688]:
             bot.delete_message(message.chat.id, message.message_id)
-            
+ 
+@bot.message_handler(commands=['versio'])
+def send_version_de_robotino(message):
+    bot.reply_to(message, "Versio: " + versio)
+    
+@bot.chat_member_handler()
+def chat_m(message: types.ChatMemberUpdated):
+    old = message.old_chat_member
+    new = message.new_chat_member
+    if new.status == "member":
+        memeoj = ["Roboto malforta ĉar virkoko", "Grupo kloaka ĉar Luna", "Esperantujo nova ĉar Pafilogate", "Tago 27-hora ĉar Paroligxema", "Roboto stulta ĉar Daria", "Krizo forta ĉar novulo", "Pablo neadministranto ĉar ombroj"]
+        bot.send_message(message.chat.id,'Bonvenon, nova kloakano! Mi estas roboto kiu faras nenion utilan. ({})'.format(random.choice(memeoj)))
+    if old.status == "member":
+        bot.send_message(message.chat.id, "<b><a href='tg://user?id={userid}'>{}</a> jonizulis. Forta krizo.</b>".format(old.user.first_name, userid = old.user.id), parse_mode="html")
 def kiom_da_mesagxoj():
     kiom_nun = bot.send_message(ne_id, "Bonan tageron, kloako")
     bot.send_chat_action(ne_id, "typing")
