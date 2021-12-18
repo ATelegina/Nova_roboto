@@ -65,7 +65,7 @@ def chat_m(message: types.ChatMemberUpdated):
     new = message.new_chat_member
     if new.status == "member":
         memeoj = ["Roboto malforta ĉar virkoko", "Grupo kloaka ĉar Luna", "Esperantujo nova ĉar Pafilogate", "Tago 27-hora ĉar Paroligxema", "Roboto stulta ĉar Daria", "Krizo forta ĉar novulo", "Pablo neadministranto ĉar ombroj"]
-        bot.send_message(message.chat.id,'Bonvenon, nova kloakano! Mi estas roboto kiu faras nenion utilan. ({})'.format(random.choice(memeoj)))
+        bot.send_message(message.chat.id,'Bonvenon, nova kloakano! Mi estas roboto kiu faras nenion utilan. Sed memoru: {}'.format(random.choice(memeoj)))
     if old.status == "member":
         bot.send_message(message.chat.id, "<b><a href='tg://user?id={userid}'>{}</a> jonizulis. Forta krizo.</b>".format(old.user.first_name, userid = old.user.id), parse_mode="html")
         
@@ -85,9 +85,9 @@ def i_donisto(message):
         
         print(frazilo, " ", idilo)
         if (frazilo==5):
-            bot.reply_to(message, tekstaro.frazoj[frazilo])
+            bot.reply_to(message, tekstaro.frazoj[frazilo], parse_mode="html")
         else:
-            bot.reply_to(message, tekstaro.frazoj[frazilo] + tekstaro.ideoj[idilo]) 
+            bot.reply_to(message, tekstaro.frazoj[frazilo] + tekstaro.ideoj[idilo], parse_mode="html") 
             
      elif(message.text.lower().find("fartas") != -1):
          #bot.reply_to(message, "Mi estas stulta boto. Mi vidas vorton \"fartas\", sed mi ne certas ĉu vi demandis \"Kiel vi fartas?\"")
