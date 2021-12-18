@@ -73,7 +73,7 @@ def chat_m(message: types.ChatMemberUpdated):
 def i_donisto(message):
 	
   if message.chat.type == "private" and message.from_user.id == 602309534:
-	bot.send_message(ne_id, message.text)
+      bot.send_message(ne_id, message.text)
   else:    
      print(message.text.find("fartas"))
            
@@ -109,7 +109,7 @@ def i_donisto(message):
         bot.reply_to(message, "...dan voĉon")
 	
      elif(message.text.lower().find('kvfb, ĉu vi vivas?') != -1):
-        bot.send_message(chat_id=chat_id, text="Roboto forta ĉar kielvifarta")
+        bot.send_message(message.chat.id, text="Roboto forta ĉar kielvifarta")
 
 def kiom_da_mesagxoj():
     kiom_nun = bot.send_message(ne_id, "Bonan tageron, kloako")
