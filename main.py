@@ -5,6 +5,7 @@ import threading
 load_dotenv()
 import random
 import gspread
+import tekstaro
 
 multe_da_grupoj = False
 ĉu_testo = False
