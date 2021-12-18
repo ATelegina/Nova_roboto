@@ -71,7 +71,10 @@ def chat_m(message: types.ChatMemberUpdated):
         
 @bot.message_handler(func=lambda m: True)
 def i_donisto(message):
-    
+	
+  if message.chat.type == "private" and message.from_user.id == 602309534:
+	bot.send_message(ne_id, message.text)
+  else:    
      print(message.text.find("fartas"))
            
      babilido = str(message.chat.id)
