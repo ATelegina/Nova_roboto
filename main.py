@@ -68,11 +68,44 @@ def chat_m(message: types.ChatMemberUpdated):
     if old.status == "member":
         bot.send_message(message.chat.id, "<b><a href='tg://user?id={userid}'>{}</a> jonizulis. Forta krizo.</b>".format(old.user.first_name, userid = old.user.id), parse_mode="html")
         
-@bot.message_handler(content_types = ['text', 'photo', 'video', 'animation', 'sticker', 'document', 'audio', 'voice', 'poll', "video_note"])
-def sendu_tekston(message):
-    if str(message.chat.id) == str(ne_id):
-      if message.from_user.id in [777000, 136817688]:
-            bot.delete_message(message.chat.id, message.message_id)
+@bot.message_handler(func=lambda m: True)
+def i_donisto(message):
+    
+     print(message.text.find("fartas"))
+           
+     babilido = str(message.chat.id)
+     print("Nova mesaĝo ĉe " + babilido + "\n")
+     
+     #if (message.text.lower() =='kiel vi fartas?' or message.text.lower() == "fartas kiel vi?" or message.text.lower() == "kiel fartas vi?" or message.text.lower() == "fartas vi kiel?" or message.text.lower() == "vi fartas kiel?" or message.text.lower() == "vi kiel fartas?"):
+     if (message.text.lower().find('fartas') != -1 and message.text.lower().find('kiel') != -1):
+        
+        frazilo = random.randint(0,11)
+        idilo = random.randint(0,19)
+        
+        print(frazilo, " ", idilo)
+        if (frazilo==5):
+            bot.reply_to(message, tekstaro.frazoj[frazilo])
+        else:
+            bot.reply_to(message, tekstaro.frazoj[frazilo] + tekstaro.ideoj[idilo]) 
+            
+     elif(message.text.lower().find("fartas") != -1):
+         #bot.reply_to(message, "Mi estas stulta boto. Mi vidas vorton \"fartas\", sed mi ne certas ĉu vi demandis \"Kiel vi fartas?\"")
+         bot.reply_to(message, "Mi estas stulta boto. Skribu \"Kiel vi fartas?\" normale")
+       
+     elif(message.text.lower().find('ĉu mi estas') != -1):    
+        bot.reply_to(message, "Jes, vi estas")
+	
+     elif(message.text.lower().find('dankon') != -1 and message.text.lower().find('bot') != -1):    
+        bot.send_sticker(message.chat.id, "CAACAgIAAxkBAAECOgdghHodXZzYd6-o8kNZ_MKkh1RvmAACQwADr8ZRGmSWUHOeMBH3HwQ")
+     
+     elif(message.text.lower().find('stulta') != -1 and message.text.lower().find('boto') != -1):
+        bot.reply_to(message, "Eĉ se vi parolas ne pri mi, insulti robotojn estas hontaĵo")
+	     
+     elif(message.text.lower().find('li havas mil') != -1):
+        bot.reply_to(message, "...dan voĉon")
+	
+     elif(message.text.lower().find('kvfb, ĉu vi vivas?') != -1):
+        bot.send_message(chat_id=chat_id, text="Roboto forta ĉar kielvifarta")
 
 def kiom_da_mesagxoj():
     kiom_nun = bot.send_message(ne_id, "Bonan tageron, kloako")
