@@ -10,7 +10,7 @@ import tekstaro
 multe_da_grupoj = False
 ĉu_testo = False
 atb_mode = False
-versio = "stulta"
+versio = "stulta_2"
 
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
@@ -91,7 +91,8 @@ def i_donisto(message):
             bot.reply_to(message, tekstaro.frazoj[frazilo], parse_mode="html")
         else:
             bot.reply_to(message, tekstaro.frazoj[frazilo] + tekstaro.ideoj[idilo], parse_mode="html") 
-            
+     elif message.text.lower().find("?") != -1 and message.text.lower().find("triona")!=-1 and message.text.lower().find("kiam")!=-1 and message.text.lower().find("venko")!=-1:
+	    bot.send_message(message.chat.id, "Ĝis triona venko restas {} mesaĝoj".format(333332 - int(message.id)))
      elif(message.text.lower().find("fartas") != -1):
          #bot.reply_to(message, "Mi estas stulta boto. Mi vidas vorton \"fartas\", sed mi ne certas ĉu vi demandis \"Kiel vi fartas?\"")
          bot.reply_to(message, "Mi estas stulta boto. Skribu \"Kiel vi fartas?\" normale")
