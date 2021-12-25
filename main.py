@@ -11,7 +11,6 @@ multe_da_grupoj = False
 ĉu_testo = False
 atb_mode = False
 versio = "stulta_3"
-TOKEN = os.getenv("KVF_TOKEN")
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
     TOKEN = str(TOKEN)
@@ -37,7 +36,7 @@ from telebot import types, util
 import time
 import random
 #import sqlite3
-
+TOKEN = os.getenv("KVF_TOKEN")
 print(path)
 bot = telebot.TeleBot(TOKEN)
 
