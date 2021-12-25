@@ -38,7 +38,10 @@ import random
 #import sqlite3
 TOKEN = os.getenv("KVF_TOKEN")
 print(path)
-bot = telebot.TeleBot(TOKEN)
+try: 
+	bot = telebot.TeleBot(TOKEN)
+except:
+	print(TOKEN)
 
 @bot.message_handler(commands=['informo', 'informu'])
 def sendu_informon(message):
