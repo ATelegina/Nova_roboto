@@ -72,7 +72,17 @@ def chat_m(message: types.ChatMemberUpdated):
 def i_donisto(message):
 	
   if message.chat.type == "private" and message.from_user.id == 602309534:
-      bot.send_message(ne_id, message.text)
+      if message.text == "/tv":
+          #tv estas Triona venko
+          tv = False
+          while tv != True:
+              a = bot.send_message(ne_id, "Triona venko proksimiĝas! 🎄🎁")
+              if 333328 < int(a.id) < 333332:
+                  tv = True
+              else:
+                  bot.delete_message(ne_id, int(a.id))
+      else:
+          bot.send_message(ne_id, message.text)
   else:    
      print(message.text.find("fartas"))
            
