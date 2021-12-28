@@ -10,7 +10,7 @@ import tekstaro
 multe_da_grupoj = False
 ĉu_testo = False
 atb_mode = False
-versio = "stulta_3"
+versio = "triona_venka"
 if ĉu_testo == False:
     TOKEN = os.getenv("VERA_TOKEN")
     TOKEN = str(TOKEN)
@@ -72,16 +72,16 @@ def chat_m(message: types.ChatMemberUpdated):
 def i_donisto(message):
 	
   if message.chat.type == "private" and message.from_user.id == 602309534:
-      if message.text == "/tv":
-          #tv estas Triona venko
+      if message.text == "Al triona venko!":
+          bot.send_message(message.chat.id, "La venko proksimiĝas")
           tv = False
           while tv != True:
               a = bot.send_message(ne_id, "Triona venko proksimiĝas! 🎄🎁")
-              if 333328 < int(a.id) < 333332:
+              if 333299 < int(a.id) < 333310:
                   tv = True
               else:
                   bot.delete_message(ne_id, int(a.id))
-                  time.sleep(0.05)
+                  time.sleep(0.1)
       else:
           bot.send_message(ne_id, message.text)
   else:    
