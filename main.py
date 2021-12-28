@@ -81,6 +81,7 @@ def i_donisto(message):
                   tv = True
               else:
                   bot.delete_message(ne_id, int(a.id))
+                  time.sleep(0.05)
       else:
           bot.send_message(ne_id, message.text)
   else:    
