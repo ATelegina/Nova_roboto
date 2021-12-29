@@ -72,12 +72,12 @@ def chat_m(message: types.ChatMemberUpdated):
 def i_donisto(message):
 	
   if message.chat.type == "private" and message.from_user.id == 602309534:
-      if message.text == "Al triona venko!":
+      if message.text == "Al duona venko!":
           bot.send_message(message.chat.id, "La venko proksimiĝas")
           tv = False
           while tv != True:
               a = bot.send_message(ne_id, "Triona venko proksimiĝas! 🎄🎁")
-              if 333299 < int(a.id) < 333310:
+              if 499980 < int(a.id) < 499990:
                   tv = True
               else:
                   bot.delete_message(ne_id, int(a.id))
@@ -101,11 +101,11 @@ def i_donisto(message):
             bot.reply_to(message, tekstaro.frazoj[frazilo], parse_mode="html")
         else:
             bot.reply_to(message, tekstaro.frazoj[frazilo] + tekstaro.ideoj[idilo], parse_mode="html") 
-     elif message.text.lower().find("?") != -1 and message.text.lower().find("triona")!=-1 and message.text.lower().find("kiam")!=-1 and message.text.lower().find("venko")!=-1:
-	     bot.send_message(message.chat.id, "Ĝis triona venko restas {} mesaĝoj".format(333332 - int(message.id)))
+     elif (message.text.lower().find("?") != -1 and message.text.lower().find("duona")!=-1 and message.text.lower().find("venko")!=-1) and (message.text.lower().find("kiam")!=-1 or message.text.lower().find("kiom")!=-1):
+	     bot.send_message(message.chat.id, "Ĝis duona venko restas {} mesaĝoj".format(499999 - int(message.id)))
      elif(message.text.lower().find("fartas") != -1):
          #bot.reply_to(message, "Mi estas stulta boto. Mi vidas vorton \"fartas\", sed mi ne certas ĉu vi demandis \"Kiel vi fartas?\"")
-         bot.reply_to(message, "Mi estas stulta boto. Skribu \"Kiel vi fartas?\" normale")
+         bot.reply_to(message, "Mi estas saĝa roboto. Skribu \"Kiel vi fartas?\" normale")
        
      elif(message.text.lower().find('ĉu mi estas') != -1):    
         bot.reply_to(message, "Jes, vi estas")
