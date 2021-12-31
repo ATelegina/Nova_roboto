@@ -6,7 +6,7 @@ load_dotenv()
 import random
 import gspread
 import tekstaro
-
+os.system('python wren_roboto.py')
 multe_da_grupoj = False
 ĉu_testo = False
 atb_mode = False
