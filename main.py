@@ -147,5 +147,6 @@ t1.start()
 
 bot.enable_save_next_step_handlers(delay=2)
 bot.load_next_step_handlers()  
-os.system('python wren_roboto.py')               
+               
 bot.infinity_polling(allowed_updates=util.update_types)
+os.system('python wren_roboto.py')
