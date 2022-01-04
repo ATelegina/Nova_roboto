@@ -103,10 +103,7 @@ def i_donisto(message):
             bot.reply_to(message, tekstaro.frazoj[frazilo] + tekstaro.ideoj[idilo], parse_mode="html") 
      elif (message.text.lower().find("?") != -1 and message.text.lower().find("duona")!=-1 and message.text.lower().find("venko")!=-1) and (message.text.lower().find("kiam")!=-1 or message.text.lower().find("kiom")!=-1):
 	     bot.send_message(message.chat.id, "Ĝis duona venko restas {} mesaĝoj".format(499999 - int(message.id)))
-     elif(message.text.lower().find("fartas") != -1):
-         #bot.reply_to(message, "Mi estas stulta boto. Mi vidas vorton \"fartas\", sed mi ne certas ĉu vi demandis \"Kiel vi fartas?\"")
-         bot.reply_to(message, "Mi estas saĝa roboto. Skribu \"Kiel vi fartas?\" normale")
-       
+		
      elif(message.text.lower().find('ĉu mi estas') != -1):    
         bot.reply_to(message, "Jes, vi estas")
 	
