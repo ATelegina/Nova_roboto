@@ -94,7 +94,7 @@ def i_donisto(message):
      if (message.text.lower().find('fartas') != -1 and message.text.lower().find('kiel') != -1):
         
         frazilo = random.randint(0,11)
-        idilo = random.randint(0,19)
+        idilo = random.randint(0,23)
         
         print(frazilo, " ", idilo)
         if (frazilo==5):
