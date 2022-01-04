@@ -29,10 +29,11 @@ def wren_komencu(message):
     wren.send_message(message.chat.id, "Ni komencu")  
 @wren.message_handler(func=lambda call: True)
 def wren_citato(message):
-    if message.text == "/citato" or message.text.find("@wren_robot") != -1:
+    if message.text == "/citato" or message.text.find("@wren_robot") != -1 or message.chat.type == "private":
         listo = open("listo.txt", "r", encoding="UTF-8").read()
         listo = str(listo)
-        wren.send_message(message.chat.id, random.choice(listo.splitlines()))    
+        wren.send_message(message.chat.id, random.choice(listo.splitlines()))
+        
 # =============================================================================
 # listo = open("C:\\Users\\dasha\\Downloads\\Telegram Desktop\\ChatExport_2021-12-20\\listo.txt", "r", encoding="UTF-8").read()
 # listo = str(listo)
