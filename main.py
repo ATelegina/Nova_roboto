@@ -57,7 +57,23 @@ def sendu_informon(message):
 @bot.message_handler(commands=['versio'])
 def send_version_de_robotino(message):
     bot.reply_to(message, "Versio: " + versio)
+
+@bot.message_handler(commands=['mil'])
+def sendu_milon(message):
+    kiom_nun = bot.send_message(ne_id, "...")
     
+    worksheet = sh.worksheet("kiom")
+    horiz = worksheet.find("Lasta idilo:").row
+    lasta_kiom = int(worksheet.cell(horiz, 2).value)
+    if kiom_nun.id-lasta_kiom + 1 < 1000:
+        bot.send_message(message.chat.id, "Ne, ni havas nur <b>{}</b>".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")    
+    else:
+        bot.send_message(message.chat.id, "Jes, vi havas mil")
+    try:
+        bot.delete_message(message.chat.id, kiom_nun.id)
+    except:
+        print("jojojo")  
+	
 @bot.chat_member_handler()
 def chat_m(message: types.ChatMemberUpdated):
     old = message.old_chat_member
