@@ -62,7 +62,7 @@ def send_version_de_robotino(message):
 @bot.message_handler(commands=['mil'])
 def sendu_milon(message):
     time.sleep(0.666)
-    kiom_nun = bot.send_message(ne_id, "...")
+    kiom_nun = bot.send_message(message.chat.id, "...")
     
     worksheet = sh.worksheet("kiom")
     horiz = worksheet.find("Lasta idilo:").row
