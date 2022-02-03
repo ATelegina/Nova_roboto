@@ -6,6 +6,7 @@ load_dotenv()
 import random
 import gspread
 import tekstaro
+import time
 
 multe_da_grupoj = False
 ĉu_testo = False
@@ -60,6 +61,7 @@ def send_version_de_robotino(message):
 
 @bot.message_handler(commands=['mil'])
 def sendu_milon(message):
+    time.sleep(0.666)
     kiom_nun = bot.send_message(ne_id, "...")
     
     worksheet = sh.worksheet("kiom")
@@ -72,7 +74,7 @@ def sendu_milon(message):
     try:
         bot.delete_message(message.chat.id, kiom_nun.id)
     except:
-        print("jojojo")  
+        print("jojojo") 
 	
 @bot.chat_member_handler()
 def chat_m(message: types.ChatMemberUpdated):
