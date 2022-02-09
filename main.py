@@ -148,8 +148,20 @@ def kiom_da_mesagxoj():
     bot.send_message(ne_id, "En la lastaj 24 horoj estis senditaj <b>{}</b> mesaĝoj".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")
     
     worksheet.update_cell(horiz, 2, int(kiom_nun.id) + 1)
+    
+def komenco_de_tago():
+    
+    komenco = 1595064840
+    nuna_tempo = int(time.time())
+    tago = ((nuna_tempo - komenco) // 97200) + 1
+    time.sleep(27)
+    if (nuna_tempo - komenco) % 97200 < 100:
+        bot.send_message(ne_id, "Nun komencas {}-a tago de kloaka epoko".format(tago))
+
+    
    
 schedule.every().day.at("03:27").do(kiom_da_mesagxoj)
+schedule.every().hour.at(":34").do(komenco_de_tago)
 #03:27
 
 def forever():
