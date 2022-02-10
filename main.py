@@ -156,7 +156,7 @@ def komenco_de_tago():
     tago = ((nuna_tempo - komenco) // 97200) + 1
     time.sleep(27)
     if (nuna_tempo - komenco) % 97200 < 100:
-        bot.send_message(ne_id, "Nun komencas {}-a tago de kloaka epoko".format(tago))
+        bot.send_message(ne_id, "Nun komencas <b>{}</b>-a tago de kloaka epoko".format(tago), parse_mode="HTML")
 
     
    
