@@ -52,12 +52,16 @@ def sendu_informon(message):
 <i>Tempo:</i> {}
 <i>Id-ilo de sendinto:</i> {}""".format(message.id, message.date, message.from_user.id), parse_mode="html")
 @bot.message_handler(commands=['tempo'])
+@bot.message_handler(commands=['tempo'])
 def sendu_tempon(message):
     komenco = 1595064840
     nuna_tempo = int(time.time())
     horo = ((nuna_tempo - komenco) % 97200) // 3600
-    minutoj = ((nuna_tempo - komenco) % 5832000) // 60
-    bot.send_message(ne_id, "Nuna kloaka tempo: <b>{}:{}</b>".format(horo, minutoj), parse_mode="HTML")       
+    minutoj = (((nuna_tempo - komenco) % 97200) // 60) - (horo*60)
+    if len(str(horo)) == 1:
+        bot.send_message(ne_id, "Nuna kloaka tempo: <b>0{}:{}</b>".format(horo, minutoj), parse_mode="HTML")
+    else:    
+        bot.send_message(ne_id, "Nuna kloaka tempo: <b>{}:{}</b>".format(horo, minutoj), parse_mode="HTML")         
  
 @bot.message_handler(commands=['versio'])
 def send_version_de_robotino(message):
