@@ -34,8 +34,6 @@ else:
 sh = gc.open("Robotina_tabelo")
 import telebot
 from telebot import types, util
-import time
-import random
 #import sqlite3
 TOKEN = os.getenv("KVF_TOKEN")
 print(path)
@@ -53,7 +51,13 @@ def sendu_informon(message):
         bot.reply_to(message, """<i>Id-ilo:</i> {}
 <i>Tempo:</i> {}
 <i>Id-ilo de sendinto:</i> {}""".format(message.id, message.date, message.from_user.id), parse_mode="html")
-        
+@bot.message_handler(commands=['tempo'])
+def sendu_tempon(message):
+    komenco = 1595064840
+    nuna_tempo = int(time.time())
+    horo = ((nuna_tempo - komenco) % 97200) // 3600
+    minutoj = ((nuna_tempo - komenco) % 5832000) // 60
+    bot.send_message(ne_id, "Nuna kloaka tempo: <b>{}:{}</b>".format(horo, minutoj), parse_mode="HTML")       
  
 @bot.message_handler(commands=['versio'])
 def send_version_de_robotino(message):
