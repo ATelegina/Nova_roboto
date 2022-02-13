@@ -54,7 +54,7 @@ def sendu_informon(message):
 @bot.message_handler(commands=['tempo'])
 @bot.message_handler(commands=['tempo'])
 def sendu_tempon(message):
-    komenco = 1595064840
+    komenco = 1595061240
     nuna_tempo = int(time.time())
     horo = ((nuna_tempo - komenco) % 97200) // 3600
     minutoj = (((nuna_tempo - komenco) % 97200) // 60) - (horo*60)
@@ -165,12 +165,12 @@ def kiom_da_mesagxoj():
     
 def komenco_de_tago():
     
-    komenco = 1595064840
+    komenco = 1595061240
     nuna_tempo = int(time.time())
     tago = ((nuna_tempo - komenco) // 97200) + 1
     time.sleep(27)
     if (nuna_tempo - komenco) % 97200 < 100:
-        bot.send_message(ne_id, "Nun komencas <b>{}</b>-a tago de kloaka epoko".format(tago), parse_mode="HTML")
+        bot.send_message(ne_id, "Nun komenciĝas <b>{}</b>-a tago de kloaka epoko".format(tago), parse_mode="HTML")
 
     
    
