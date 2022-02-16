@@ -1,5 +1,7 @@
-import telebot 
-TOKEN = '5242116953:AAEoEIDLyAS9YCQl7zA3mjOi-zKfRZ05Xz4'
+import telebot
+from dotenv import load_dotenv
+load_dotenv()
+TOKEN = os.getenv("KLOAKA_TOKEN")
 bot = telebot.TeleBot(TOKEN, parse_mode="Markdown")
 ne_id = -1001463711396 
 malbono = -1001638499087
