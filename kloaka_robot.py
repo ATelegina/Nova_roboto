@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("KLOAKA_TOKEN")
-print("TOKEN {}".format(TOKEN))
 bot = telebot.TeleBot(TOKEN, parse_mode="Markdown")
 ne_id = -1001463711396 
 malbono = -1001638499087
@@ -15,7 +14,6 @@ def resendo(message):
         if bot.get_chat_member(ne_id, message.from_user.id).status == 'left':   
              bot.send_message(message.chat.id, "Vi ne estas vera kloakano. Aliĝu: @Esperantujoo")
         else:
-            print("sal1")
             if message.content_type == 'photo':
                 bot.send_message(ne_id, "Sendita de {} ({})".format(message.from_user.first_name, message.from_user.id))
                 bot.forward_message(ne_id, message.chat.id, message.id)
