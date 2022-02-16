@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("KLOAKA_TOKEN")
+print("TOKEN {}".format(TOKEN))
 bot = telebot.TeleBot(TOKEN, parse_mode="Markdown")
 ne_id = -1001463711396 
 malbono = -1001638499087
