@@ -136,21 +136,22 @@ def sendu_monaton(message):
 @bot.message_handler(commands=['mil'])
 def sendu_milon(message):
 	bot.send_message(message.chat.id, "KS/KZ")
-    return
-    time.sleep(0.666)
-    kiom_nun = bot.send_message(message.chat.id, "...")
-    
-    worksheet = sh.worksheet("kiom")
-    horiz = worksheet.find("Lasta idilo:").row
-    lasta_kiom = int(worksheet.cell(horiz, 2).value)
-    if kiom_nun.id-lasta_kiom + 1 < 1000:
-        bot.send_message(message.chat.id, "Ne, ni havas nur <b>{}</b>".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")    
-    else:
-        bot.send_message(message.chat.id, "Jes, vi havas mil")
-    try:
-        bot.delete_message(message.chat.id, kiom_nun.id)
-    except:
-        print("jojojo") 
+# =============================================================================
+#     time.sleep(0.666)
+#     kiom_nun = bot.send_message(message.chat.id, "...")
+#     
+#     worksheet = sh.worksheet("kiom")
+#     horiz = worksheet.find("Lasta idilo:").row
+#     lasta_kiom = int(worksheet.cell(horiz, 2).value)
+#     if kiom_nun.id-lasta_kiom + 1 < 1000:
+#         bot.send_message(message.chat.id, "Ne, ni havas nur <b>{}</b>".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")    
+#     else:
+#         bot.send_message(message.chat.id, "Jes, vi havas mil")
+#     try:
+#         bot.delete_message(message.chat.id, kiom_nun.id)
+#     except:
+#         print("jojojo") 
+# =============================================================================
 	
 @bot.chat_member_handler()
 def chat_m(message: types.ChatMemberUpdated):
@@ -220,9 +221,8 @@ def kiom_da_mesagxoj():
     worksheet = sh.worksheet("kiom")
     horiz = worksheet.find("Lasta idilo:").row
     lasta_kiom = int(worksheet.cell(horiz, 2).value)
+    #bot.send_message(ne_id, "En la lastaj 24 horoj estis senditaj <b>{}</b> mesaĝoj".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")
     worksheet.update_cell(horiz, 2, int(kiom_nun.id) + 1)
-    return
-    bot.send_message(ne_id, "En la lastaj 24 horoj estis senditaj <b>{}</b> mesaĝoj".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")
     
     
     
