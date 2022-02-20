@@ -135,6 +135,8 @@ def sendu_monaton(message):
     bot.send_message(message.chat.id, listo)
 @bot.message_handler(commands=['mil'])
 def sendu_milon(message):
+	bot.send_message(message.chat.id, "KS/KZ")
+    return
     time.sleep(0.666)
     kiom_nun = bot.send_message(message.chat.id, "...")
     
@@ -218,10 +220,11 @@ def kiom_da_mesagxoj():
     worksheet = sh.worksheet("kiom")
     horiz = worksheet.find("Lasta idilo:").row
     lasta_kiom = int(worksheet.cell(horiz, 2).value)
-    
+    worksheet.update_cell(horiz, 2, int(kiom_nun.id) + 1)
+    return
     bot.send_message(ne_id, "En la lastaj 24 horoj estis senditaj <b>{}</b> mesaĝoj".format(kiom_nun.id-lasta_kiom + 1), parse_mode="HTML")
     
-    worksheet.update_cell(horiz, 2, int(kiom_nun.id) + 1)
+    
     
 def komenco_de_tago():
     
