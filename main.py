@@ -40,7 +40,70 @@ print(path)
 TOKEN = str(TOKEN)
 TOKEN = TOKEN.translate({ ord(c): None for c in '""' })
 bot = telebot.TeleBot(TOKEN)
+#-------------------------------------
 
+komenco = 1595061240
+
+nun = int(time.time())
+kiom_s = nun - komenco
+listo_de_monatoj = ["pafiluaro", "vizituaro", "tedarto", "apruaro", "kozojo", "lunio", "jonizulio", "kitabusto", "bajzuembro", "ombrobro", "milhavembro", "obsedembro"]
+def tempo():
+    nuna_tempo = int(time.time())
+    horo = ((nuna_tempo - komenco) % 97200) // 3600
+    minutoj = (((nuna_tempo - komenco) % 97200) // 60) - (horo*60)
+    if len(str(horo)) == 1:
+        horo = "0" + str(horo)
+    if len(str(minutoj)) == 1:
+        minutoj = "0" + str(minutoj)
+    tempo = str(horo) + ":" + str(minutoj)
+    return tempo    
+    
+def tago (resto, jaro, monato):
+    tago = 1
+    while resto > 97200:
+        tago += 1
+        resto -= 97200
+        if tago == 28:
+            tago = "Talpa tago"
+            rezulto = "{}, {}, {}-a jaro p.P.".format(tempo(),tago, jaro)
+            return rezulto
+    rezulto = "{}, {} {}, {}-a jaro p.P.".format(tempo(), tago, listo_de_monatoj[monato], jaro)
+    return rezulto                                            
+def monato(resto, jaro):
+    monato = 0
+    while resto > 2624400:
+        monato += 1
+        resto -= 2624400
+    rezulto = tago(resto, jaro, monato)
+    return rezulto
+def dato():
+ malfinite = True
+ jaro = 0    
+ while malfinite:
+    komenco = 1595061240
+    nun = int(time.time())
+    kiom_s = nun - komenco 
+    if kiom_s  > 31492800:
+        jaro += 1
+        kiom_s -= 31492800
+        if kiom_s > 31590000:
+            jaro += 1
+            kiom_s -= 31590000
+            if kiom_s - 31590000 > 31590000:
+                jaro += 1
+                kiom_s -= 31590000
+            else:
+                jaro += 1
+                malfinite = False
+        else:
+            jaro += 1
+            malfinite = False
+    else:
+        jaro += 1
+        malfinite = False
+ return monato(kiom_s, jaro) 
+
+#-------------------------------------
 @bot.message_handler(commands=['informo', 'informu'])
 def sendu_informon(message):
     if message.reply_to_message:
@@ -52,23 +115,12 @@ def sendu_informon(message):
 <i>Tempo:</i> {}
 <i>Id-ilo de sendinto:</i> {}""".format(message.id, message.date, message.from_user.id), parse_mode="html")
 @bot.message_handler(commands=['tempo'])
-@bot.message_handler(commands=['tempo'])
 def sendu_tempon(message):
-    komenco = 1595061240
-    nuna_tempo = int(time.time())
-    horo = ((nuna_tempo - komenco) % 97200) // 3600
-    minutoj = (((nuna_tempo - komenco) % 97200) // 60) - (horo*60)
-    if len(str(horo)) == 1:
-        if len(str(minutoj)) == 1:
-            bot.send_message(ne_id, "Nuna kloaka tempo: <b>0{}:0{}</b>".format(horo, minutoj), parse_mode="HTML")
-        else:
-            bot.send_message(ne_id, "Nuna kloaka tempo: <b>0{}:{}</b>".format(horo, minutoj), parse_mode="HTML")
-    else:
-        if len(str(minutoj)) == 1:
-            bot.send_message(ne_id, "Nuna kloaka tempo: <b>{}:0{}</b>".format(horo, minutoj), parse_mode="HTML")
-        else:
-            bot.send_message(ne_id, "Nuna kloaka tempo: <b>{}:{}</b>".format(horo, minutoj), parse_mode="HTML")         
- 
+    bot.send_message(message.chat.id, "Nuna kloaka tempo: <b>{}</b>".format(tempo()), parse_mode="HTML")         
+
+@bot.message_handler(commands=['dato'])
+def sendu_daton(message):
+    bot.send_message(message.chat.id, dato())    
 @bot.message_handler(commands=['versio'])
 def send_version_de_robotino(message):
     bot.reply_to(message, "Versio: " + versio)
