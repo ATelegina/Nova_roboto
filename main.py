@@ -159,8 +159,8 @@ def chat_m(message: types.ChatMemberUpdated):
         bot.send_message(message.chat.id,'Bonvenon, nova kloakano! Mi estas roboto kiu faras nenion utilan. Se vi ne komprenas kio okazas ĉi tie, vizitu https://t.me/+Uba2wuP3t3QzMDYy')
     if old.status == "member":
         bot.send_message(message.chat.id, "<b><a href='tg://user?id={userid}'>{}</a> jonizulis. Forta krizo.</b>".format(old.user.first_name, userid = old.user.id), parse_mode="html")
-        
-@bot.message_handler(func=lambda m: True)
+ #ŝanĝu se estas eraro       
+@bot.message_handler(content_types = ['text'])
 def i_donisto(message):
 	
   if message.chat.type == "private" and message.from_user.id == 602309534:
