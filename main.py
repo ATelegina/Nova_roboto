@@ -131,7 +131,7 @@ def sendu_monaton(message):
     a = 0
     for i in listo_de_monatoj:
         a += 1
-        listo = str(a) + i + "\n"
+        listo += str(a) + ". " + i + "\n"
     bot.send_message(message.chat.id, listo)
 @bot.message_handler(commands=['mil'])
 def sendu_milon(message):
