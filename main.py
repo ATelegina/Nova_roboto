@@ -63,10 +63,6 @@ def tago (resto, jaro, monato):
     while resto > 97200:
         tago += 1
         resto -= 97200
-        if tago == 28:
-            tago = "Talpa tago"
-            rezulto = "{}, {}, {}-a jaro p.P.".format(tempo(),tago, jaro)
-            return rezulto
     rezulto = "{}, {} {}, {}-a jaro p.P.".format(tempo(), tago, listo_de_monatoj[monato], jaro)
     return rezulto                                            
 def monato(resto, jaro):
@@ -74,7 +70,11 @@ def monato(resto, jaro):
     while resto > 2624400:
         monato += 1
         resto -= 2624400
-    rezulto = tago(resto, jaro, monato)
+    if monato == 12:
+        tago = "Talpa tago"
+        rezulto = "{}, {}, {}-a jaro p.P.".format(tempo(),tago, jaro)
+    else:    
+        rezulto = tago(resto, jaro, monato)
     return rezulto
 def dato():
  malfinite = True
